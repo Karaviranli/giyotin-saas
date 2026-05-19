@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: kavira_db
+    restart: always
+    environment:
+      POSTGRES_USER: kavira_admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: kavira_saas
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: kavira_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://kavira_admin:supersecretpassword@db:5432/kavira_saas
+      - SECRET_KEY=kavira_cok_gizli_jwt_anahtari_2026
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
