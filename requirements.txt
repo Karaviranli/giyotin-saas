@@ -16,3 +16,4 @@ bcrypt==3.2.2
 fastapi-mail==1.4.1
 iyzipay
 apscheduler
+slowapi
