@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15-alpine
@@ -15,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend
+    build: .
     container_name: kavira_backend
     restart: always
     ports:
@@ -25,6 +23,8 @@ services:
       - SECRET_KEY=kavira_cok_gizli_jwt_anahtari_2026
     depends_on:
       - db
+    volumes:
+      - ./backend/app:/app/app
 
 volumes:
   postgres_data:

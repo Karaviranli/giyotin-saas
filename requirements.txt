@@ -11,3 +11,8 @@ python-jose[cryptography]
 passlib[bcrypt]
 alembic
 pydantic-settings
+python-multipart
+bcrypt==3.2.2
+fastapi-mail==1.4.1
+iyzipay
+apscheduler

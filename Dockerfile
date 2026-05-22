@@ -10,7 +10,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Uygulama kodlarını kopyala (Dizin yapısını koruyarak)
-COPY ./app /app/app
+COPY ./backend/app /app/app
 
 ENV PATH="/home/root/.local/bin:${PATH}"
 

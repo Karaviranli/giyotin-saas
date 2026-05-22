@@ -36,6 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.9.2
   shared_preferences: ^2.5.5
+  file_saver: ^0.2.12
+  app_links: ^6.3.2
+  syncfusion_flutter_pdfviewer: ^24.1.41
+  share_plus: any
+  printing: any
+  pdf: any
 
 dev_dependencies:
   flutter_test:
