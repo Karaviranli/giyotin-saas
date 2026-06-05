@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse, FileResponse
 from sqlalchemy.orm import Session
 from jose import jwt, JWTError
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from app.core.config import settings
 from app.core.dependencies import get_current_active_user
 
@@ -27,13 +27,12 @@ def require_active_subscription(
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
-    # GEÇİCİ OLARAK ABONELİK KONTROLÜ DEVRE DIŞI BIRAKILDI (Kullanıcı toplama aşaması)
-    # sub = db.query(Subscription).filter(Subscription.company_id == current_user.company_id).first()
-    # if not sub or not sub.is_active or (sub.end_date and sub.end_date < datetime.utcnow()):
-    #     if sub and sub.is_active: # Süresi dolmuş ama veritabanında aktif kalmışsa
-    #         sub.is_active = False
-    #         db.commit()
-    #     raise HTTPException(status_code=403, detail="Aktif bir aboneliğiniz bulunmamaktadır. Lütfen aboneliğinizi yenileyin.")
+    sub = db.query(Subscription).filter(Subscription.company_id == current_user.company_id).first()
+    if not sub or not sub.is_active or (sub.end_date and sub.end_date < datetime.utcnow()):
+        if sub and sub.is_active:
+            sub.is_active = False
+            db.commit()
+        raise HTTPException(status_code=403, detail="Aktif bir aboneliğiniz bulunmamaktadır. Lütfen aboneliğinizi yenileyin.")
     return current_user
 
 # --- SuperAdmin Kontrol Dependency ---
@@ -51,6 +50,53 @@ class GiyotinRequest(BaseModel):
     quantity: int
     stock_length: float
     kerf: float
+
+    @field_validator("width")
+    @classmethod
+    def width_valid(cls, v: float) -> float:
+        # cam_en = width - 149 → negatif cam olmaması için min 150
+        if v <= 149:
+            raise ValueError("Genişlik en az 150 mm olmalıdır.")
+        if v > 10_000:
+            raise ValueError("Genişlik en fazla 10.000 mm olabilir.")
+        return v
+
+    @field_validator("height")
+    @classmethod
+    def height_valid(cls, v: float) -> float:
+        # cam_boy = (height - 263) / 3 → negatif cam olmaması için min 264
+        if v <= 263:
+            raise ValueError("Yükseklik en az 264 mm olmalıdır.")
+        if v > 10_000:
+            raise ValueError("Yükseklik en fazla 10.000 mm olabilir.")
+        return v
+
+    @field_validator("quantity")
+    @classmethod
+    def quantity_valid(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("Adet en az 1 olmalıdır.")
+        if v > 500:
+            raise ValueError("Adet en fazla 500 olabilir.")
+        return v
+
+    @field_validator("kerf")
+    @classmethod
+    def kerf_valid(cls, v: float) -> float:
+        if v < 0:
+            raise ValueError("Testere payı (kerf) negatif olamaz.")
+        if v > 50:
+            raise ValueError("Testere payı (kerf) en fazla 50 mm olabilir.")
+        return v
+
+    @field_validator("stock_length")
+    @classmethod
+    def stock_length_valid(cls, v: float) -> float:
+        if v <= 0:
+            raise ValueError("Stok uzunluğu pozitif olmalıdır.")
+        if v > 20_000:
+            raise ValueError("Stok uzunluğu en fazla 20.000 mm olabilir.")
+        return v
 
 class CombinedGiyotinRequest(BaseModel):
     project_name: str
@@ -216,6 +262,9 @@ def update_settings(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
+    # Yalnızca şirket yöneticileri fiyat ayarlarını değiştirebilir
+    if not current_user.is_company_admin:
+        raise HTTPException(status_code=403, detail="Fiyat ayarlarını yalnızca şirket yöneticisi değiştirebilir.")
     from app.models.company_settings import CompanySettings
     company_settings = db.query(CompanySettings).filter(CompanySettings.company_id == current_user.company_id).first()
     if not company_settings:
@@ -273,10 +322,129 @@ def reset_company_settings(
     current_user: User = Depends(get_current_superuser)
 ):
     from app.models.company_settings import CompanySettings
-    # Şirketin özel ayarlarını tablodan sileriz.
-    # Böylece şirket ilk girişinde veya hesaplama yaptığında, varsayılan (default) fiyatlarla yeni bir ayar satırı otomatik üretilir.
     settings = db.query(CompanySettings).filter(CompanySettings.company_id == company_id).first()
     if settings:
         db.delete(settings)
         db.commit()
     return {"message": f"Şirket ayarları başarıyla varsayılanlara sıfırlandı."}
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# PUBLIC TEKLİF — giriş gerektirmez, varsayılan fiyatlarla tahmini hesap
+# ──────────────────────────────────────────────────────────────────────────────
+
+class PublicQuoteRequest(BaseModel):
+    width: float
+    height: float
+    quantity: int = 1
+
+    @field_validator("width")
+    @classmethod
+    def width_ok(cls, v):
+        if v <= 149 or v > 10000:
+            raise ValueError("Genişlik 150–10.000 mm aralığında olmalıdır.")
+        return v
+
+    @field_validator("height")
+    @classmethod
+    def height_ok(cls, v):
+        if v <= 263 or v > 10000:
+            raise ValueError("Yükseklik 264–10.000 mm aralığında olmalıdır.")
+        return v
+
+    @field_validator("quantity")
+    @classmethod
+    def qty_ok(cls, v):
+        if v < 1 or v > 50:
+            raise ValueError("Adet 1–50 aralığında olmalıdır.")
+        return v
+
+
+@router.post("/public-quote")
+def public_quote(request: PublicQuoteRequest):
+    """Kayıt gerektirmeyen hızlı maliyet tahmini.
+
+    Piyasa varsayılan fiyatları kullanılır; sonuç yüzde 30 perakende
+    marjı ve yüzde 20 KDV eklenerek müşteriye sunulacak tahmini fiyattır.
+    Kayıt oluşturulmaz.
+    """
+    import math
+
+    w, h, qty = request.width, request.height, request.quantity
+
+    # Varsayılan birim fiyatlar (giyotin_service.py DEF ile birebir)
+    alm_kg_tl     = 368.0
+    cam_m2_tl     = 1915.0
+    kayis_tl_m    = 150.0
+    boru_tl_m     = 204.0
+    kayisli_set   = 4104.0
+    kumanda       = 860.0
+    motor         = 3765.0
+    gg_yuzde      = 2.5
+    stock_length  = 6500.0
+    kerf          = 3.0
+
+    # Profil ağırlık katsayıları (kg/m)
+    profil_kg_m = {
+        "K-1401": 0.615, "K-1402": 0.615, "K-1403": 0.380,
+        "K-1404": 0.520, "K-1405": 0.520, "K-1406": 0.490,
+        "K-1407": 0.490, "K-1408": 0.280, "K-1409": 0.280,
+        "K-1410": 0.280, "K-1411": 0.280, "K-1412": 0.280,
+    }
+
+    cam_en   = w - 149
+    cam_boy  = (h - 263) / 3
+    cam_adet = qty * 3
+    cam_m2   = (cam_en * cam_boy * cam_adet) / 1_000_000
+
+    profiller = [
+        {"kod": "K-1401", "olcu": w - 30,         "adet": qty * 1},
+        {"kod": "K-1402", "olcu": w - 30,         "adet": qty * 1},
+        {"kod": "K-1403", "olcu": w - 45,         "adet": qty * 1},
+        {"kod": "K-1405", "olcu": h - 175,        "adet": qty * 2},
+        {"kod": "K-1404", "olcu": h - 175,        "adet": qty * 2},
+        {"kod": "K-1406", "olcu": (cam_boy*2)+20, "adet": qty * 2},
+        {"kod": "K-1407", "olcu": cam_boy + 28,   "adet": qty * 2},
+        {"kod": "K-1408", "olcu": w - 177,        "adet": qty * 1},
+        {"kod": "K-1409", "olcu": w - 177,        "adet": qty * 6},
+        {"kod": "K-1410", "olcu": cam_boy + 29,   "adet": qty * 2},
+        {"kod": "K-1411", "olcu": w - 177,        "adet": qty * 3},
+        {"kod": "K-1412", "olcu": w - 177,        "adet": qty * 1},
+    ]
+
+    profil_tl = 0.0
+    for p in profiller:
+        stok = math.ceil((p["adet"] * (p["olcu"] + kerf)) / stock_length)
+        m    = stok * (stock_length / 1000)
+        kg   = m * profil_kg_m.get(p["kod"], 0.4)
+        profil_tl += kg * alm_kg_tl
+
+    # Motor borusu
+    boru_stok  = math.ceil((qty * (w - 75 + kerf)) / stock_length)
+    boru_m     = boru_stok * (stock_length / 1000)
+    boru_tl_toplam = boru_m * boru_tl_m
+
+    # Kayış, cam, sabit
+    kayis_m   = round((h / 4) * 4.7 * qty / 1000, 3)
+    kayis_tl  = kayis_m * kayis_tl_m
+    cam_tl    = cam_m2 * cam_m2_tl
+    sabit_tl  = qty * (kayisli_set + motor) + kumanda
+
+    ara = profil_tl + boru_tl_toplam + kayis_tl + cam_tl + sabit_tl
+    gg  = ara * (gg_yuzde / 100)
+    maliyet = ara + gg
+
+    # Perakende marjı (%30) + KDV (%20)
+    MARJ = 1.30
+    KDV  = 0.20
+    kdv_haric = round(maliyet * MARJ, 2)
+    kdv_tl    = round(kdv_haric * KDV, 2)
+    genel_toplam = round(kdv_haric + kdv_tl, 2)
+
+    return {
+        "kdv_haric_tl":   kdv_haric,
+        "kdv_tl":         kdv_tl,
+        "genel_toplam_tl": genel_toplam,
+        "birim_fiyat_tl": round(genel_toplam / qty, 2),
+        "not": "Bu fiyat varsayılan piyasa fiyatlarıyla hesaplanmış tahmini bir değerdir."
+    }
