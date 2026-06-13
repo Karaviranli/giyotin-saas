@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kullanım Koşulları | Kavira Software</title>
+<meta name="description" content="Kavira Software kullanım koşulları — bireysel girişim, erken erişim.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%23FFD84A'/%3E%3Cpath d='M22 18 L32 18 L32 62 L22 62 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L52 18 L58 24 L42 40 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L42 50 L36 56 L32 52 Z' fill='%23080909'/%3E%3Cpath d='M44 52 L58 62 L52 62 L38 54 Z' fill='%23080909'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080909;--bg-2:#0d0e10;--surface:#15171a;--surface-2:#1a1d22;--border:#23262b;--border-2:#2d3138;--text:#fafafa;--text-2:#d4d6da;--text-muted:#a0a4ab;--text-dim:#666870;--brand:#FFD84A;--blue:#5B8DEF;--green:#30D158;--orange:#FF6B4A;--r-md:12px;--r-lg:16px}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(8,9,9,.85);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:14px;letter-spacing:1.5px}
+.brand-logo{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 20px rgba(255,216,74,.25)}
+.brand-logo svg{width:100%;height:100%;display:block}
+.brand-text{display:flex;gap:5px}
+.brand-text span:last-child{color:var(--brand)}
+.back-btn{color:var(--text-muted);font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s}
+.back-btn:hover{color:var(--text)}
+
+main{max-width:780px;margin:0 auto;padding:60px 24px 80px}
+.page-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.page-tag::before{content:'// '}
+.page-title{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px;background:linear-gradient(180deg,var(--text) 55%,var(--text-muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-date{font-size:12px;color:var(--text-dim);margin-bottom:44px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+
+h2{font-size:20px;font-weight:700;margin:42px 0 14px;color:var(--text);letter-spacing:-.3px;position:relative;padding-left:18px}
+h2::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--brand);border-radius:2px}
+p{font-size:15px;color:var(--text-2);margin-bottom:14px;line-height:1.7}
+ul{list-style:none;padding-left:0;margin-bottom:14px}
+ul li{font-size:15px;color:var(--text-2);margin-bottom:10px;padding-left:22px;position:relative;line-height:1.65}
+ul li::before{content:'→';position:absolute;left:0;color:var(--brand);font-weight:600}
+a{color:var(--brand);transition:color .15s}
+a:hover{color:#fff}
+strong{color:var(--text);font-weight:600}
+hr{border:none;border-top:1px solid var(--border);margin:48px 0 32px}
+
+.highlight{background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--border-2);border-radius:var(--r-lg);padding:24px 26px;margin-bottom:32px;position:relative;overflow:hidden}
+.highlight::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--brand)}
+.highlight p{margin-bottom:0;font-size:14px;color:var(--text-2)}
+.highlight .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:block}
+
+.notice-free{background:rgba(48,209,88,.06);border:1px solid rgba(48,209,88,.25);border-radius:var(--r-lg);padding:22px 26px;margin:32px 0}
+.notice-free::before{background:var(--green)}
+.notice-free .label{color:var(--green)}
+
+table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-2)}
+th{background:var(--surface-2);color:var(--text);font-weight:600;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border-2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-2)}
+tr:last-child td{border-bottom:0}
+
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:48px 24px 32px;color:var(--text-muted);font-size:13px}
+.foot-grid{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-bottom:24px}
+.foot-grid a{color:var(--text-muted);padding:6px 14px;position:relative;transition:color .15s}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid a:not(:last-child)::after{content:'';position:absolute;right:0;top:50%;height:14px;width:1px;background:var(--border-2);transform:translateY(-50%)}
+.foot-bottom{text-align:center;padding-top:18px;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:.5px}
+.foot-bottom a{color:var(--brand)}</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="brand">
+    <div class="brand-logo"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" rx="18" fill="#FFD84A"/><path d="M22 18 L32 18 L32 62 L22 62 Z" fill="#080909"/><path d="M32 40 L52 18 L58 24 L42 40 Z" fill="#080909"/><path d="M32 40 L42 50 L36 56 L32 52 Z" fill="#080909"/><path d="M44 52 L58 62 L52 62 L38 54 Z" fill="#080909"/></svg></div>
+    <div class="brand-text"><span>KAVIRA</span><span>SOFTWARE</span></div>
+  </a>
+  <a href="/" class="back-btn">← Ana Sayfa</a>
+</nav>
+<main>
+  <span class="page-tag">yasal · 01</span>
+  <h1 class="page-title">Kullanım Koşulları</h1>
+  <p class="page-date">Son güncelleme: 6 Haziran 2026</p>
+
+<div class="highlight">
+  <span class="label">Önemli Bilgi</span>
+  <p><strong>Kavira Software</strong>; bireysel girişim olarak yürütülen yazılım çalışmalarının marka adıdır. Bu metnin kabul edilmesi, bireysel girişimci (Geliştirici) ile kullanıcı arasındaki çerçeveyi oluşturur. Geliştiricinin kimlik bilgileri yasal başvuru üzerine 5 iş günü içinde e-posta yoluyla paylaşılır.</p>
+</div>
+
+<div class="notice-free highlight">
+  <span class="label">Erken Erişim Dönemi</span>
+  <p>Kavira Software platformları şu anda <strong>erken erişim sürümündedir ve tamamen ücretsizdir</strong>. İleride ücretli abonelik modeline geçilirse mevcut kullanıcılar e-posta ile bildirilir; mevcut kullanım dönemi sona ermeden ücret alınmaz. Geçişe kadar verilerinizi indirme ve hesabınızı silme hakkınız saklıdır.</p>
+</div>
+
+<h2>1. Taraflar</h2>
+<p>Bu sözleşme; <strong>Kavira Software</strong> markası altında Ankara, Türkiye merkezli bireysel girişim olarak faaliyet gösteren Geliştirici ile platforma kayıt olan kişi/kuruluş ("Kullanıcı") arasında akdedilmiştir. "Platform"; kavirasoftware.com, kaviragiyotin.online ve Kavira Software adı altında yayınlanan diğer alt platformlardan oluşur.</p>
+
+<h2>2. Hizmet Kapsamı</h2>
+<p>Platform; sektörel hesaplama, kesim planı, üretim takibi, müşteri ilişkileri ve müşteri portalı gibi araçları web üzerinden sunar. Hizmet "olduğu gibi" ve "olduğu kadar" prensibiyle sağlanır. Erken erişim sürümünde yeni özellikler, değişiklikler ve geçici kesintiler olabilir.</p>
+
+<h2>3. Hesap Açma ve Kullanım</h2>
+<ul>
+  <li>Hesap açmak için 18 yaşını doldurmuş olmak gerekir.</li>
+  <li>Doğru ve güncel bilgi vermek Kullanıcı'nın sorumluluğundadır.</li>
+  <li>E-posta, şifre ve oturum bilgilerinin gizliliğinden Kullanıcı sorumludur.</li>
+  <li>Hesap üzerinden yapılan tüm işlemlerden Kullanıcı sorumlu tutulur.</li>
+  <li>Hesap başkasına devredilemez, paylaşılamaz.</li>
+</ul>
+
+<h2>4. Ücretlendirme</h2>
+<p>Erken erişim sürümünde hiçbir ücret talep edilmez. İleride ücretli abonelik modeline geçildiğinde:</p>
+<ul>
+  <li>Mevcut kullanıcılara en az <strong>30 gün önce</strong> e-posta ile bildirim yapılır.</li>
+  <li>Kullanıcı yeni koşulları kabul etmezse hesabını sonlandırarak verilerini indirebilir.</li>
+  <li>Otomatik ücretlendirme yapılmaz; ücretli sürüme geçiş ancak Kullanıcı'nın açık onayı ile gerçekleşir.</li>
+</ul>
+
+<h2>5. Kullanıcı Yükümlülükleri</h2>
+<ul>
+  <li>Platformu yalnızca yasal amaçlarla kullanmak.</li>
+  <li>Üçüncü kişilerin haklarını (telif, gizlilik, marka) ihlal etmemek.</li>
+  <li>Bot/scraping araçları ile sistemi yormamak.</li>
+  <li>Tespit edilen güvenlik açıklarını sorumlu açıklama (responsible disclosure) ile bildirmek.</li>
+  <li>Diğer kullanıcılara zarar verecek davranışlardan kaçınmak.</li>
+</ul>
+
+<h2>6. Fikri Mülkiyet</h2>
+<p>Platform, arayüz, algoritmalar, marka ve yazılım <strong>Kavira Software</strong> Geliştirici'sine aittir. İzinsiz kopyalama, çoğaltma, dağıtım, tersine mühendislik ve veri kazıma yasaktır. Kullanıcının sisteme yüklediği veriler kendisine aittir; Geliştirici yalnızca hizmeti sağlamak amacıyla bu verileri işler.</p>
+
+<h2>7. Sorumluluk Sınırı</h2>
+<p>Erken erişim ve ücretsiz hizmet niteliği gereği Geliştirici; veri kaybı, üretim hatası, kesinti, üçüncü taraf hataları veya kullanıcıdan kaynaklı yanlış girdi nedeniyle oluşabilecek doğrudan veya dolaylı zararlardan sorumlu tutulamaz. Üretim hesaplamaları nihai sorumluluk Kullanıcı'nındır; her hesap sonucu fiziksel uygulamadan önce gözden geçirilmelidir.</p>
+
+<h2>8. Hizmet Düzeyi</h2>
+<p>Geliştirici %99.5 erişilebilirlik hedefler ancak garanti vermez. Planlı bakımlar e-posta ile önceden bildirilir. Beklenmedik kesintilerde mümkün olan en kısa sürede müdahale edilir.</p>
+
+<h2>9. Hesap Sonlandırma</h2>
+<ul>
+  <li>Kullanıcı istediği zaman hesabını silebilir (uygulama içinden veya e-posta ile).</li>
+  <li>Sözleşme ihlali veya yasal gereklilik halinde Geliştirici hesabı askıya alabilir veya kapatabilir.</li>
+  <li>Hesap kapatıldığında veriler 30 gün içinde silinir (yasal saklama gerektiren kayıtlar hariç).</li>
+</ul>
+
+<h2>10. Değişiklikler</h2>
+<p>Geliştirici bu metni güncelleyebilir. Önemli değişiklikler en az 15 gün önce e-posta veya platform üzerinden bildirilir. Bildirim sonrası kullanıma devam etmek değişiklikleri kabul anlamına gelir.</p>
+
+<h2>11. Uyuşmazlık Çözümü</h2>
+<p>Bu sözleşmeye Türkiye Cumhuriyeti hukuku uygulanır. Uyuşmazlıklarda <strong>Ankara Mahkemeleri ve İcra Daireleri</strong> yetkilidir. Taraflar uyuşmazlık halinde önce dostane çözüm yolunu deneyeceklerini kabul ederler.</p>
+
+<h2>12. İletişim</h2>
+<p><strong>Kavira Software</strong> (bireysel girişim)<br>Konum: Ankara, Türkiye<br>E-posta: <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a></p>
+<p style="font-size:13px;color:var(--text-muted)">Geliştiricinin (bireysel girişimcinin) kimlik bilgileri yasal başvuru veya KVKK m.13 talebi üzerine 5 iş günü içinde paylaşılır.</p>
+</main>
+<footer>
+  <div class="foot-grid">
+    <a href="/">Ana Sayfa</a>
+    <a href="/terms">Kullanım Koşulları</a>
+    <a href="/privacy">Gizlilik (KVKK)</a>
+    <a href="/cookies">Çerez Politikası</a>
+    <a href="/accessibility">Erişilebilirlik</a>
+  </div>
+  <div class="foot-bottom">© 2026 Kavira Software · Ankara, Türkiye · <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a></div>
+</footer>
+</body></html>

@@ -242,3 +242,201 @@ def deactivate_promo_code(
     promo.is_active = False
     db.commit()
     return {"message": "Kod devre dışı bırakıldı."}
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# /insights — KVKK uyumlu agregat veri havuzu
+# Hiçbir kişisel bilgi (email/isim/IP) içermez; sadece sayısal/kategorik.
+# ═════════════════════════════════════════════════════════════════════════
+@router.get("/insights")
+def get_insights(
+    db: Session = Depends(get_db),
+    _: User = Depends(_require_admin),
+):
+    """Detaylı agregat veri havuzu — power dashboard için."""
+    now = datetime.utcnow()
+    d7  = now - timedelta(days=7)
+    d30 = now - timedelta(days=30)
+    d90 = now - timedelta(days=90)
+
+    # ── Sistem türü dağılımı (en çok kullanılan) ──
+    sistem_dist = (
+        db.query(GiyotinRecord.system_type, func.count(GiyotinRecord.id).label("n"))
+        .group_by(GiyotinRecord.system_type)
+        .order_by(func.count(GiyotinRecord.id).desc())
+        .all()
+    )
+    sistem_dagilim = [
+        {"sistem": (s or "Belirsiz"), "adet": n}
+        for s, n in sistem_dist
+    ]
+
+    # ── Proje metrikleri (boyut, miktar, maliyet ortalamaları) ──
+    proj = db.query(
+        func.avg(GiyotinRecord.width).label("avg_w"),
+        func.avg(GiyotinRecord.height).label("avg_h"),
+        func.avg(GiyotinRecord.quantity).label("avg_qty"),
+        func.max(GiyotinRecord.width).label("max_w"),
+        func.max(GiyotinRecord.height).label("max_h"),
+        func.sum(GiyotinRecord.quantity).label("toplam_sistem"),
+    ).first()
+
+    # Maliyetler cost_details JSON içinden — Python'da toplayalım
+    records_with_cost = db.query(GiyotinRecord.cost_details, GiyotinRecord.created_at).all()
+    cost_list = []
+    profil_freq: dict = {}
+    fire_yuzdeleri = []
+    cost_last_30 = 0.0
+    for cd, ca in records_with_cost:
+        if not cd or not isinstance(cd, dict):
+            continue
+        total = cd.get("total_cost") or cd.get("toplam_tl") or 0
+        try:
+            total_f = float(total)
+        except Exception:
+            total_f = 0.0
+        if total_f > 0:
+            cost_list.append(total_f)
+            if ca and ca >= d30:
+                cost_last_30 += total_f
+
+        # Profil sıklığı
+        profil_detay = cd.get("profil_detay") or cd.get("profiller") or []
+        if isinstance(profil_detay, list):
+            for p in profil_detay:
+                if isinstance(p, dict):
+                    kod = (p.get("kod") or "").strip()
+                    if kod:
+                        profil_freq[kod] = profil_freq.get(kod, 0) + 1
+
+        # Fire payı
+        fp = cd.get("fire_payi") or cd.get("fire_yuzde")
+        try:
+            if fp is not None:
+                fire_yuzdeleri.append(float(fp))
+        except Exception:
+            pass
+
+    ortalama_maliyet = round(sum(cost_list) / len(cost_list), 2) if cost_list else 0
+    toplam_maliyet = round(sum(cost_list), 2)
+    max_maliyet = round(max(cost_list), 2) if cost_list else 0
+    ortalama_fire = round(sum(fire_yuzdeleri) / len(fire_yuzdeleri), 2) if fire_yuzdeleri else 0
+
+    top_profiller = sorted(profil_freq.items(), key=lambda x: x[1], reverse=True)[:10]
+
+    # ── Saatlik aktivite (son 30g — hangi saatlerde yoğun) ──
+    saatlik = [0] * 24
+    activity_recs = (
+        db.query(GiyotinRecord.created_at)
+        .filter(GiyotinRecord.created_at >= d30)
+        .all()
+    )
+    for (ca,) in activity_recs:
+        if ca:
+            saatlik[ca.hour] += 1
+
+    # ── Engagement segmentleri ──
+    company_record_counts = (
+        db.query(GiyotinRecord.company_id, func.count(GiyotinRecord.id).label("n"))
+        .group_by(GiyotinRecord.company_id)
+        .all()
+    )
+    power_users = sum(1 for _c, n in company_record_counts if n >= 10)
+    aktif = sum(1 for _c, n in company_record_counts if 3 <= n < 10)
+    casual = sum(1 for _c, n in company_record_counts if 1 <= n < 3)
+    total_companies = db.query(func.count(Company.id)).scalar() or 0
+    silent_count = total_companies - power_users - aktif - casual
+
+    # ── Trial expiration takibi — gelecek 7g'de süresi dolacaklar ──
+    upcoming = (
+        db.query(Subscription)
+        .filter(
+            Subscription.is_active == True,
+            Subscription.end_date.isnot(None),
+            Subscription.end_date >= now,
+            Subscription.end_date <= now + timedelta(days=7),
+        )
+        .order_by(Subscription.end_date.asc())
+        .all()
+    )
+    upcoming_expirations = [
+        {
+            "company_id": s.company_id,
+            "plan_name": s.plan_name,
+            "end_date": s.end_date.isoformat() if s.end_date else None,
+            "gun_kaldi": (s.end_date - now).days if s.end_date else 0,
+        }
+        for s in upcoming
+    ]
+
+    # Yeni süresi dolanlar (proaktif ulaşım için)
+    just_expired = (
+        db.query(Subscription)
+        .filter(
+            Subscription.is_active == False,
+            Subscription.end_date.isnot(None),
+            Subscription.end_date >= now - timedelta(days=7),
+            Subscription.end_date < now,
+        )
+        .order_by(Subscription.end_date.desc())
+        .all()
+    )
+    recently_expired = [
+        {
+            "company_id": s.company_id,
+            "plan_name": s.plan_name,
+            "end_date": s.end_date.isoformat() if s.end_date else None,
+            "gun_once": (now - s.end_date).days if s.end_date else 0,
+        }
+        for s in just_expired
+    ]
+
+    # ── Haftalık büyüme (son 12 hafta) ──
+    weekly = []
+    for i in range(11, -1, -1):
+        w_start = now - timedelta(days=(i+1) * 7)
+        w_end = now - timedelta(days=i * 7)
+        n_rec = db.query(func.count(GiyotinRecord.id)).filter(
+            GiyotinRecord.created_at >= w_start,
+            GiyotinRecord.created_at < w_end,
+        ).scalar() or 0
+        n_new_co = db.query(func.count(Subscription.id)).filter(
+            Subscription.start_date >= w_start,
+            Subscription.start_date < w_end,
+        ).scalar() or 0
+        weekly.append({
+            "hafta": w_start.strftime("%d/%m"),
+            "kayit": n_rec,
+            "yeni_firma": n_new_co,
+        })
+
+    return {
+        "sistem_dagilim": sistem_dagilim,
+        "proje_metrikleri": {
+            "ort_genislik": round(float(proj.avg_w or 0), 1),
+            "ort_yukseklik": round(float(proj.avg_h or 0), 1),
+            "ort_adet": round(float(proj.avg_qty or 0), 1),
+            "max_genislik": round(float(proj.max_w or 0), 1),
+            "max_yukseklik": round(float(proj.max_h or 0), 1),
+            "toplam_sistem_adet": int(proj.toplam_sistem or 0),
+        },
+        "finansal": {
+            "ortalama_maliyet_tl": ortalama_maliyet,
+            "toplam_hesaplanmis_maliyet_tl": toplam_maliyet,
+            "max_proje_maliyeti_tl": max_maliyet,
+            "son_30g_hesaplanmis_maliyet_tl": round(cost_last_30, 2),
+            "ortalama_fire_yuzde": ortalama_fire,
+        },
+        "top_profiller": [{"kod": k, "frekans": v} for k, v in top_profiller],
+        "saatlik_aktivite": saatlik,
+        "engagement": {
+            "power_users": power_users,
+            "aktif": aktif,
+            "casual": casual,
+            "sessiz": silent_count,
+            "toplam_firma": total_companies,
+        },
+        "yaklasan_bitisler": upcoming_expirations,
+        "son_bitenler": recently_expired,
+        "haftalik_buyume": weekly,
+    }

@@ -15,6 +15,7 @@ from app.db.database import get_db, engine, Base
 from app.models.user import User
 from app.models.company import Company
 from app.models.subscription import Subscription
+from app.models.vendor import Vendor, VendorSystem, VendorProfile
 from app.models.giyotin import GiyotinRecord
 from app.models.product_system import ProductSystem
 from app.models.company_settings import CompanySettings

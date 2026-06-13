@@ -19,16 +19,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://kavira_admin:F6qTDu3aiAD6d43unKrG3lwQoygXGOtR@db:5432/kavira_saas
+      - DATABASE_URL=postgresql://kavira_admin:supersecretpassword@db:5432/kavira_saas
       - SECRET_KEY=kavira_cok_gizli_jwt_anahtari_2026
-      - MAIL_USERNAME=kavirasoftware@gmail.com
-      - MAIL_PASSWORD=ffqmeisjjltxkfks
-      - MAIL_FROM=kavirasoftware@gmail.com
-      - MAIL_FROM_NAME=Kavira Software
-      - MAIL_SERVER=smtp.gmail.com
-      - MAIL_PORT=587
-      - MAIL_STARTTLS=True
-      - MAIL_SSL_TLS=False
     depends_on:
       - db
     volumes:

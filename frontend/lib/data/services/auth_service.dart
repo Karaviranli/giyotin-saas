@@ -25,6 +25,8 @@ class AuthService {
     required String companyName,
     required String password,
     required String passwordConfirm,
+    bool kvkkAccepted = true,
+    String? verificationCode,
   }) async {
     final response = await _dio.post('/api/v1/auth/register', data: {
       'full_name': fullName,
@@ -32,6 +34,8 @@ class AuthService {
       'company_name': companyName,
       'password': password,
       'password_confirm': passwordConfirm,
+      'kvkk_accepted': kvkkAccepted,
+      if (verificationCode != null) 'verification_code': verificationCode,
     });
     return response.data is Map ? (response.data['message'] ?? "Kayıt Başarılı!") : "Kayıt Başarılı!";
   }

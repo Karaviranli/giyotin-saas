@@ -13,7 +13,7 @@ class ApiClient {
     dio = Dio(BaseOptions(
       // Android emülatör için 10.0.2.2, Web/iOS için localhost kullanmalısın
       // Şimdilik varsayılan backend adresimiz:
-      baseUrl: 'http://127.0.0.1:8000/api/v1', 
+      baseUrl: 'https://kaviragiyotin.online', 
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ));

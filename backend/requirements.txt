@@ -11,4 +11,4 @@ python-jose[cryptography]
 passlib[bcrypt]
 alembic
 pydantic-settings
-python-multipart
+python-multipartiyzipay

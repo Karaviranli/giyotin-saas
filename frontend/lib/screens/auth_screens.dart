@@ -137,10 +137,10 @@ void _showLegalDialog(BuildContext context, String title, String content) {
 //  Shared design tokens / helpers
 // ─────────────────────────────────────────────
 
-const _kBrandDark = Color(0xFF0A0F1E);
-const _kBrandDarker = Color(0xFF0D1424);
-const _kBrandAccent = Color(0xFF3B82F6);
-const _kBrandAccentDeep = Color(0xFF1D4ED8);
+const _kBrandDark = Color(0xFF26303F);       // slate koyu marka paneli
+const _kBrandDarker = Color(0xFF1B2330);     // daha koyu slate
+const _kBrandAccent = Color(0xFF647C9E);     // yumuşak slate-mavi vurgu
+const _kBrandAccentDeep = Color(0xFF3A4F6B); // primary slate
 
 // ──────────────────────────────────────────────────────────────
 //  _BrandPanel  –  Left decorative panel (desktop only)
@@ -570,7 +570,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [_kBrandDark, Color(0xFF111827)],
+            colors: [_kBrandDark, _kBrandDarker],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -1508,7 +1508,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [_kBrandDark, Color(0xFF111827)],
+            colors: [_kBrandDark, _kBrandDarker],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

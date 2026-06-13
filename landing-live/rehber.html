@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giyotin Cam Sistemi Nedir? Hesaplama Rehberi 2026 | Kavira</title>
+  <meta name="description" content="Giyotin cam sistemi profil hesaplama, kesim planı optimizasyonu ve tedarikçi bazlı maliyet hesabı için kapsamlı rehber. Katar, Saray, Zahit gibi alüminyum tedarikçilerinin profil setleri, kg/m ağırlıkları, fire hesabı ve yazılım çözümleri.">
+  <meta name="keywords" content="giyotin cam sistemi nedir, giyotin hesaplama programı, giyotin profil hesaplama, alüminyum giyotin cam, giyotin cam kesim planı, giyotin cam fiyatı hesaplama, tedarikçi bazlı giyotin hesaplama, katar giyotin hesaplama, saray giyotin programı, zahit giyotin yazılımı, zahit klasik giyotin, zahit silinebilir giyotin, giyotin profil ağırlığı kg/m, giyotin cam programı, giyotin kesim optimizasyonu, giyotin cam maliyet hesabı, bin-packing giyotin">
+  <meta name="author" content="Kavira Software">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kaviragiyotin.online/rehber">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://kaviragiyotin.online/rehber">
+  <meta property="og:title" content="Giyotin Cam Sistemi Hesaplama Rehberi | Kavira Giyotin">
+  <meta property="og:description" content="Giyotin cam sistemi profil hesaplama, kesim planı ve maliyet analizi için kapsamlı rehber.">
+  <meta property="og:image" content="https://kaviragiyotin.online/og-image.png">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Article + FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Giyotin Cam Sistemi Nedir? Profil Hesaplama ve Kesim Planı Rehberi",
+        "description": "Giyotin cam sistemi profil hesaplama, kesim planı optimizasyonu ve maliyet analizi hakkında kapsamlı rehber.",
+        "url": "https://kaviragiyotin.online/rehber",
+        "datePublished": "2026-05-01",
+        "dateModified": "2026-06-11",
+        "author": {"@type": "Organization", "name": "Kavira Software", "url": "https://kaviragiyotin.online"},
+        "publisher": {"@type": "Organization", "name": "Kavira Software", "url": "https://kaviragiyotin.online"},
+        "inLanguage": "tr",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://kaviragiyotin.online/rehber"}
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Giyotin cam sistemi nedir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Giyotin cam sistemi, dikey hareket eden cam paneller kullanılarak balkon, teras veya veranda kapatmak için kullanılan aluminyum profil sistemidir. Paneller yukarı kaldırılıp çakıştırılarak açılır. Hava şartlarına karşı koruma sağlarken manzarayı engellememesi en büyük avantajıdır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Giyotin cam profil hesabı nasıl yapılır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Giyotin cam profil hesabı için balkon genişliği (mm), yükseklik (mm), sistem adedi ve seçilen tedarikçi gereklidir. Her tedarikçinin profil seti (üst ray, alt ray, yan dikme, orta profil, motor kutusu vb.) ve parça uzunluk formülleri farklı olduğu için aynı ölçü farklı tedarikçilerde farklı kg ve maliyet üretir. Kavira Giyotin bu hesabı tedarikçi kataloğuna bire bir uygun yapar."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hangi alüminyum tedarikçilerinin giyotin sistemleri destekleniyor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Şu an 8 sistem tam destekli olarak hazır gelir: Katar Alüminyum Klasik Giyotin, Saray Mimari Sistemler GYT-80, Zahit Klasik, Zahit Vetrina Silinebilir Giyotin, Asistal G130T Isıcamlı Giyotin, Tema Alüminyum Isı Camlı Giyotin, Mavera Mimarlık (MVR) Giyotin Cam Sistemi ve Tümen Alüminyum GI-ART Giyotin. Her tedarikçinin kendi profil kodları (K-14XX, 145XX, V.GY.XXX, G130T, T.24XX, TG/KIF, G-29XX), parça uzunluk formülleri, kg/m ağırlıkları ve aksesuar reçetesi (köşe takozu, fitil, motor seti, zincir/kayış sistemi, ispanyolet vb.) resmi kataloga bire bir tanımlıdır. Yeni tedarikçiler kataloğunuz gelir gelmez eklenir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Giyotin cam kesim planı optimizasyonu ne işe yarar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kesim planı optimizasyonu, 6 metre veya 6,5 metre profil stoklarından en az fire ile parçaları nasıl keseceğinizi hesaplar. Birden fazla projeyi birleşik kesimle optimize etmek %30'a kadar profil tasarrufu sağlayabilir. Bin-packing algoritması hangi parçaların hangi profile sığacağını otomatik belirler."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Giyotin cam maliyeti nasıl hesaplanır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Giyotin cam maliyeti; seçilen tedarikçinin profil setine göre alüminyum kg × TL/kg, cam m² fiyatı, motor sistemi (kayış, boru, kayışlı set, kumanda, motor), aksesuarlar (köşe takozu, fitiller, vasistas takoz, zincir sistemi vb.) ve genel gider + işçilik toplamından oluşur. Üzerine kâr marjı ve KDV eklenerek müşteri satış fiyatı çıkar. Kavira Giyotin yazılımı bu hesabı tedarikçiye özel reçeteyle ve güncel fiyatlarla otomatik yapar."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Alüminyum giyotin profil kodları nelerdir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Profil kodları tedarikçiye göre farklıdır. Katar: K-1401 (üst ray) … K-1412 (hareketli üst küpeşte) + motor borusu. Saray GYT-80: 14506–14517 (kasa kapak, hareketli ray/pervaz, yan kanat). Zahit Klasik & Vetrina Silinebilir: V.GY.100–V.GY.209 (dikme, baza, kanat) + V.ES.103–V.ES.116 (cam çıta, kenet). Asistal G130T: G130T-01–G130T-13 (üst/alt/yan kasa, kanat, ispanyolet, cam çıta). Tema: T.2401–T.2499 (20 profil, üst kutu 3.182 kg/m en ağır). Mavera (MVR): KIF-0001/0002 ana şase + TG-102/103/104/108/109 + TGI-105/106/107 (ısı cam) ve TCT-105/106/107 (tek cam) alternatifi. Her kodun kendine özgü kg/m ağırlık katsayısı vardır ve hesap bu katsayıyla yapılır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Giyotin cam hesaplama programı ücretsiz mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kavira Giyotin programı 7 günlük ücretsiz deneme sunar. Bu süre içinde tüm özellikler aktiftir: profil hesabı, kesim planı, maliyet analizi ve PDF raporu. Kredi kartı bilgisi istenmez."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Kavira Giyotin", "item": "https://kaviragiyotin.online/"},
+          {"@type": "ListItem", "position": 2, "name": "Rehber", "item": "https://kaviragiyotin.online/rehber"}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#070B17;--bg-2:#0A0F1F;--surface:rgba(30,41,59,.5);
+      --border:rgba(148,163,184,.12);--border-strong:rgba(148,163,184,.25);
+      --blue:#3B82F6;--cyan:#06B6D4;--purple:#8B5CF6;--green:#22C55E;
+      --text:#F1F5F9;--muted:#94A3B8;--dim:#64748B;
+    }
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    nav{position:sticky;top:0;z-index:100;background:rgba(7,11,23,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:64px}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;color:var(--text);text-decoration:none}
+    .nav-logo img{width:28px;height:28px;border-radius:7px}
+    .btn-nav{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;color:#fff;padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
+    .btn-ghost{background:transparent;border:1px solid var(--border-strong);color:var(--text);padding:8px 16px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none}
+    .nav-actions{display:flex;gap:8px}
+
+    /* Article layout */
+    .article-wrap{max-width:820px;margin:0 auto;padding:60px 24px 100px}
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:32px}
+    .breadcrumb a{color:var(--blue);text-decoration:none}
+    .breadcrumb span{margin:0 8px;opacity:.4}
+    .article-label{font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+    .article-title{font-size:clamp(28px,5vw,44px);font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+    .article-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+    .article-meta span{display:flex;align-items:center;gap:6px}
+
+    /* TOC */
+    .toc{background:rgba(30,41,59,.5);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:48px}
+    .toc-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+    .toc ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+    .toc a{color:var(--blue);text-decoration:none;font-size:14px;font-weight:500}
+    .toc a:hover{text-decoration:underline}
+
+    /* Content typography */
+    h2{font-size:clamp(20px,3.5vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--text);margin:56px 0 20px;padding-top:8px;line-height:1.25}
+    h2:first-of-type{margin-top:0}
+    h3{font-size:18px;font-weight:700;color:var(--text);margin:32px 0 12px}
+    p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:18px}
+    strong{color:var(--text);font-weight:600}
+    ul,ol{padding-left:24px;margin-bottom:18px;display:flex;flex-direction:column;gap:8px}
+    li{font-size:15px;color:var(--muted);line-height:1.7}
+    li strong{color:var(--text)}
+
+    /* Info boxes */
+    .info-box{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);border-radius:12px;padding:20px 24px;margin:28px 0}
+    .info-box.green{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.25)}
+    .info-box.yellow{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)}
+    .info-title{font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+    .info-box.green .info-title{color:var(--green)}
+    .info-box.yellow .info-title{color:#FBBF24}
+    .info-box p{margin-bottom:0;font-size:14px}
+
+    /* Table */
+    .table-wrap{overflow-x:auto;margin:24px 0 32px;border-radius:12px;border:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead{background:rgba(30,41,59,.8)}
+    th{padding:12px 16px;text-align:left;font-weight:700;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+    td{padding:11px 16px;border-top:1px solid var(--border);color:var(--muted)}
+    td:first-child{color:var(--text);font-weight:600}
+    tr:hover td{background:rgba(59,130,246,.04)}
+
+    /* FAQ */
+    .faq-list{display:flex;flex-direction:column;gap:10px;margin:24px 0}
+    .faq-item{background:rgba(30,41,59,.4);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .faq-item summary{padding:18px 22px;cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--text)}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::after{content:'+';font-size:22px;color:var(--blue);font-weight:300;transition:transform .3s;flex-shrink:0;margin-left:12px}
+    .faq-item[open] summary::after{transform:rotate(45deg)}
+    .faq-item .faq-a{padding:0 22px 18px;color:var(--muted);font-size:14px;line-height:1.7}
+
+    /* CTA */
+    .cta-box{background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(6,182,212,.08));border:1px solid rgba(59,130,246,.3);border-radius:20px;padding:40px 32px;text-align:center;margin-top:64px}
+    .cta-box h3{font-size:24px;font-weight:800;margin-bottom:10px}
+    .cta-box p{font-size:15px;color:var(--muted);margin-bottom:24px}
+    .btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .btn-note{font-size:12px;color:var(--muted);margin-top:12px}
+
+    /* Footer */
+    .footer-wrap{border-top:1px solid var(--border);padding:32px 20px;background:rgba(7,11,23,.6)}
+    footer{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+    @media(min-width:700px){footer{flex-direction:row;justify-content:space-between}}
+    .footer-logo{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:13px}
+    .footer-copy{color:var(--dim);font-size:12px}
+
+    @media(max-width:600px){
+      .article-wrap{padding:40px 16px 80px}
+      h2{font-size:20px;margin:40px 0 16px}
+      .toc{padding:18px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/favicon.png" alt="Kavira Giyotin">
+    Kavira Giyotin
+  </a>
+  <div class="nav-actions">
+    <a href="/app" class="btn-ghost">Giriş Yap</a>
+    <a href="/app" class="btn-nav">Ücretsiz Dene</a>
+  </div>
+</nav>
+
+<div class="article-wrap">
+  <div class="breadcrumb">
+    <a href="/">Kavira Giyotin</a>
+    <span>›</span>
+    Rehber
+  </div>
+
+  <p class="article-label">📐 Kapsamlı Rehber</p>
+  <h1 class="article-title">Giyotin Cam Sistemi: Profil Hesaplama, Kesim Planı ve Maliyet Analizi Rehberi (2026)</h1>
+
+  <div class="article-meta">
+    <span>📅 Mayıs 2026</span>
+    <span>⏱ 8 dk okuma</span>
+    <span>✍️ Kavira Software</span>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">İçindekiler</div>
+    <ol>
+      <li><a href="#nedir">Giyotin Cam Sistemi Nedir?</a></li>
+      <li><a href="#profil-kodlari">Aluminyum Profil Kodları ve Ağırlıkları</a></li>
+      <li><a href="#profil-hesaplama">Profil Uzunluğu Nasıl Hesaplanır?</a></li>
+      <li><a href="#maliyet">Maliyet Hesabı: Hangi Kalemler Var?</a></li>
+      <li><a href="#kesim-plani">Kesim Planı Optimizasyonu Neden Önemli?</a></li>
+      <li><a href="#fire">Fire Hesabı ve Bin-Packing</a></li>
+      <li><a href="#yazilim">Hesaplama Yazılımı Kullanmanın Avantajları</a></li>
+      <li><a href="#sss">Sık Sorulan Sorular</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <h2 id="nedir">1. Giyotin Cam Sistemi Nedir?</h2>
+  <p>
+    <strong>Giyotin cam sistemi</strong>, balkon, teras, veranda ve çatı katı gibi açık alanları kapatmak için kullanılan aluminyum profil ve temperli cam kombinasyonuna dayalı bir pencere sistemidir. Adını, bıçağın aşağıya indiği giyotin aleti gibi dikey hareket eden cam panellerinden alır.
+  </p>
+  <p>
+    Cam paneller dikey raylar üzerinde yukarı kaldırılır ve üst bölümde çakıştırılarak toplanır. Bu sayede mekan tamamen açılabilir ya da tamamen kapatılabilir. <strong>Rüzgar, yağmur ve sese karşı yüksek koruma</strong> sağlarken manzarayı engellememesi en büyük avantajıdır.
+  </p>
+
+  <div class="info-box green">
+    <div class="info-title">✓ Neden Tercih Edilir?</div>
+    <p>Çerçevesiz tasarımı sayesinde maksimum cam yüzeyi, %100 açılabilir yapısı sayesinde tam havalandırma, aluminyum profilin hafifliği sayesinde kolayca hareket ettirilebilir paneller sunar.</p>
+  </div>
+
+  <h3>Sistemin Temel Bileşenleri</h3>
+  <ul>
+    <li><strong>Üst ray (U-profil):</strong> Camların asıldığı ve kaydığı üst kılavuz profil.</li>
+    <li><strong>Alt ray:</strong> Camların alt kılavuzluk yaptığı profil; yağmur suyunu dışarı yönlendirir.</li>
+    <li><strong>Yan profil (köşe dikme):</strong> Sistemin iki yanını kapatan dikey profiller.</li>
+    <li><strong>Orta profil:</strong> İki cam panelin birleştiği noktada kullanılan profil.</li>
+    <li><strong>Sekizgen boru:</strong> Motorlu sistemlerde kullanılan aktarma borusu.</li>
+    <li><strong>Motor ve kumanda:</strong> Elektrikli açılıp kapanma mekanizması.</li>
+    <li><strong>Kayış ve kayışlı set:</strong> Manuel sistemlerde tahrik elemanı.</li>
+    <li><strong>Temperli cam:</strong> 6+6 veya 8 mm kalınlığında güvenlik camı.</li>
+  </ul>
+
+  <!-- 2 -->
+  <h2 id="profil-kodlari">2. Tedarikçi Bazlı Giyotin Profil Kodları ve Ağırlıkları</h2>
+  <p>
+    Giyotin cam sistemlerinde profil kodları ve <strong>kg/m ağırlık katsayıları</strong> tedarikçiye göre değişir. Aynı pencere ölçüsü Katar, Saray ve Zahit sistemlerinde farklı toplam alüminyum kilogramı üretir; doğru maliyet için <strong>tedarikçinizin kataloğuna birebir uygun hesap</strong> şarttır.
+  </p>
+
+  <p>Aşağıda <strong>Katar Alüminyum</strong> sisteminin örnek profil seti yer alıyor. Saray GYT-80 (14506–14517), Zahit Klasik/Vetrina (V.GY.100–V.GY.209, V.ES.103–V.ES.116), Asistal G130T (G130T-01–G130T-13), Tema (T.2401–T.2499) ve Mavera (KIF-0001, TG-102/103/104, TGI/TCT-105/106/107) kendi kod ailelerini kullanır; mantık aynıdır.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Profil Kodu (Katar)</th>
+          <th>Kullanım Yeri</th>
+          <th>Ağırlık (kg/m)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>K-1401</td><td>Üst ray (ana)</td><td>~0.85</td></tr>
+        <tr><td>K-1402</td><td>Alt ray</td><td>~0.72</td></tr>
+        <tr><td>K-1403</td><td>Yan dikme profili</td><td>~0.68</td></tr>
+        <tr><td>K-1404</td><td>Orta profil</td><td>~0.61</td></tr>
+        <tr><td>K-1405</td><td>Cam taşıyıcı profil</td><td>~0.55</td></tr>
+        <tr><td>K-1406</td><td>İç profil</td><td>~0.49</td></tr>
+        <tr><td>K-1407 – K-1412</td><td>Çeşitli yardımcı profiller</td><td>~0.30–0.58</td></tr>
+        <tr><td>Motor Borusu</td><td>Motorlu sistemlerde aktarma</td><td>~0.42</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box yellow">
+    <div class="info-title">⚠️ Dikkat</div>
+    <p>Profil kodları ve kg/m değerleri tedarikçiye göre değişir. Kavira Giyotin yazılımı; Katar, Saray GYT-80, Zahit Klasik, Zahit Vetrina Silinebilir, Asistal G130T, Tema Isı Camlı ve Mavera (MVR) kataloglarını ayrı ayrı modeller ve her tedarikçi için doğru profil seti + kg/m + aksesuar reçetesiyle hesap yapar.</p>
+  </div>
+
+  <!-- 3 -->
+  <h2 id="profil-hesaplama">3. Giyotin Cam Profil Uzunluğu Nasıl Hesaplanır?</h2>
+  <p>
+    Profil hesabının temelinde <strong>balkon genişliği (mm)</strong> ve <strong>balkon yüksekliği (mm)</strong> verileri yatar. Bu ölçülerden aşağıdaki değerler türetilir:
+  </p>
+
+  <h3>Temel Formüller</h3>
+  <ul>
+    <li><strong>Cam genişliği:</strong> Balkon genişliği − 149 mm (profil payı)</li>
+    <li><strong>Cam yüksekliği:</strong> (Balkon yüksekliği − 263 mm) ÷ 3 (kanat sayısına göre bölünür)</li>
+    <li><strong>Profil adedi:</strong> Her profil tipi için kanat sayısına göre hesaplanır</li>
+    <li><strong>Toplam uzunluk:</strong> Profil adedi × ilgili boyut (genişlik veya yükseklik)</li>
+  </ul>
+
+  <p>
+    Örneğin <strong>2750 mm genişlik × 2200 mm yükseklik</strong> bir balkon için:
+  </p>
+  <ul>
+    <li>Cam genişliği: 2750 − 149 = <strong>2601 mm</strong></li>
+    <li>Cam yüksekliği: (2200 − 263) ÷ 3 = <strong>645,67 mm</strong></li>
+    <li>K-1401 üst ray: 1 adet × 2750 mm = <strong>2750 mm</strong></li>
+    <li>K-1403 yan profil: 2 adet × 2200 mm = <strong>4400 mm</strong></li>
+  </ul>
+
+  <div class="info-box">
+    <div class="info-title">💡 İpucu</div>
+    <p>Bu hesabı elle yapmak zaman alır ve hata riskini artırır. Kavira Giyotin yazılımı bu hesabı saniyeler içinde yapar; seçtiğiniz tedarikçiye göre (Katar, Saray, Zahit Klasik, Zahit Silinebilir) tüm profil seti için otomatik uzunluk, kg/m ağırlık ve aksesuar hesabı çıkarır.</p>
+  </div>
+
+  <!-- 4 -->
+  <h2 id="maliyet">4. Giyotin Cam Maliyet Hesabı: Hangi Kalemler Var?</h2>
+  <p>
+    Giyotin cam sistemi maliyet hesabı tek bir rakamdan ibaret değildir. Doğru teklif verebilmek için her kalemi ayrı ayrı hesaplamak gerekir:
+  </p>
+
+  <h3>Maliyet Kalemleri</h3>
+  <ul>
+    <li><strong>Aluminyum profil maliyeti:</strong> Toplam profil ağırlığı (kg) × aluminyum TL/kg fiyatı</li>
+    <li><strong>Cam maliyeti:</strong> Toplam cam alanı (m²) × cam TL/m² fiyatı (4+16+4 DC/C ısı camı veya standart)</li>
+    <li><strong>Kayış:</strong> Toplam kayış uzunluğu (m) × kayış TL/m</li>
+    <li><strong>Sekizgen boru:</strong> Toplam boru uzunluğu (m) × boru TL/m</li>
+    <li><strong>Kayışlı set:</strong> Set adedi × TL/adet</li>
+    <li><strong>Kumanda:</strong> Adet × TL/adet</li>
+    <li><strong>Motor:</strong> Adet × TL/adet (motorlu sistemlerde)</li>
+    <li><strong>Genel gider:</strong> Toplam maliyet × genel gider yüzdesi (%)</li>
+  </ul>
+
+  <div class="info-box green">
+    <div class="info-title">✓ Profesyonel Fiyatlandırma</div>
+    <p>Kavira Giyotin yazılımında fiyatlarınızı bir kez giriyorsunuz — her hesaplamada otomatik güncellenir. TL bazlı fiyat değişikliklerini kolayca takip edin.</p>
+  </div>
+
+  <!-- 5 -->
+  <h2 id="kesim-plani">5. Kesim Planı Optimizasyonu Neden Önemli?</h2>
+  <p>
+    Giyotin cam atölyeleri profili genellikle <strong>6 metre veya 6,5 metre stok boy</strong> halinde satın alır. Her hesaplama için farklı uzunluklarda parçalar kesilir. <strong>Hangi parçanın hangi stok profilden kesileceğine karar vermek</strong>, fire miktarını doğrudan etkiler.
+  </p>
+
+  <h3>Optimizasyon Olmadan Ne Olur?</h3>
+  <ul>
+    <li>Her iş için ayrı profil açılır, her profil ayrı kesilir</li>
+    <li>Kısa kalan parçalar çöpe gider (fire)</li>
+    <li>Gereksiz profil alımı maliyeti artırır</li>
+    <li>Depo atıl malzemeyle dolar</li>
+  </ul>
+
+  <h3>Birleşik Kesim Optimizasyonu ile Ne Kazanılır?</h3>
+  <ul>
+    <li>Birden fazla projenin tüm parçaları tek seferde değerlendirilir</li>
+    <li>Küçük parçalar aynı profilden, büyük parçalar başka profilden kesilir</li>
+    <li><strong>Ortalama %25–31 profil tasarrufu</strong> sağlanır</li>
+    <li>Fire miktarı dramatik biçimde düşer</li>
+  </ul>
+
+  <!-- 6 -->
+  <h2 id="fire">6. Fire Hesabı ve Bin-Packing Algoritması</h2>
+  <p>
+    <strong>Bin-packing</strong>, bilgisayar biliminde "kutuya sığdırma" problemi olarak bilinir. Giyotin cam bağlamında: elimizdeki stok profiller "kutu", kesilecek parçalar ise "eşya"dır. Amaç, en az sayıda stok profilden tüm parçaları kesmektir.
+  </p>
+
+  <h3>First-Fit Decreasing (FFD) Algoritması</h3>
+  <p>
+    Kavira Giyotin yazılımı <strong>First-Fit Decreasing</strong> yöntemini kullanır:
+  </p>
+  <ol>
+    <li>Tüm parçalar büyükten küçüğe sıralanır</li>
+    <li>Her parça, <strong>sığdığı ilk stok profil</strong>e yerleştirilir</li>
+    <li>Hiçbirine sığmıyorsa yeni bir stok profil açılır</li>
+    <li>Bu süreç tüm parçalar bitene kadar tekrarlanır</li>
+  </ol>
+
+  <h3>Fire Formülü</h3>
+  <p>
+    Her parçanın kesilmesi için testere payı (kerf) hesaba katılır. Standart testere payı 5 mm'dir:
+  </p>
+  <div class="info-box">
+    <div class="info-title">📐 Formül</div>
+    <p>Fire = Stok uzunluğu − Σ(parça uzunluğu + kerf)<br>Her parça için testere payı eklenir, son parça dahil.</p>
+  </div>
+
+  <!-- 7 -->
+  <h2 id="yazilim">7. Giyotin Cam Hesaplama Yazılımı Kullanmanın Avantajları</h2>
+  <p>
+    Manuel hesaplama hata riskini artırır, zaman kaybettirir ve müşteri tekliflerinde güvensizlik yaratır. <strong>Kavira Giyotin</strong> yazılımı bu sorunları ortadan kaldırır:
+  </p>
+  <ul>
+    <li><strong>Anlık hesaplama:</strong> Ölçüleri girince profil uzunlukları, ağırlıklar ve maliyet saniyeler içinde hazır.</li>
+    <li><strong>Güncel fiyatlar:</strong> TL/kg, TL/m² fiyatlarını bir kez girin, her hesaplamada otomatik kullanılır.</li>
+    <li><strong>Görsel kesim planı:</strong> Hangi parçanın hangi stok profilden kesildiğini renkli görselle görün, ustanıza gönderin.</li>
+    <li><strong>Proje arşivi:</strong> Tüm geçmiş hesaplamalar kayıtlı. İstediğiniz işleri birleştirerek ortak kesim planı oluşturun.</li>
+    <li><strong>Profesyonel PDF raporu:</strong> Müşteriye gönderilebilir maliyet dökümü ve kesim planı.</li>
+    <li><strong>Çoklu proje birleştirme:</strong> Aynı gün teslim edilecek 3-4 projeyi tek kesimde optimize edin.</li>
+  </ul>
+
+  <!-- FAQ -->
+  <h2 id="sss">8. Sık Sorulan Sorular</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Giyotin cam sistemi ile katlanır cam sistemi arasındaki fark nedir?</summary>
+      <div class="faq-a">Giyotin cam sisteminde paneller dikey olarak yukarı kaldırılır ve üst bölümde çakıştırılarak toplanır. Katlanır cam sisteminde ise paneller yana doğru katlanarak açılır. Giyotin sistem daha az yer kaplar ve rüzgara karşı daha dayanıklıdır. Katlanır sistem daha geniş açılım sağlar ancak profil ve menteşe maliyeti daha yüksektir.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Giyotin cam hesaplamasında cam kalınlığı fiyatı nasıl etkiler?</summary>
+      <div class="faq-a">Standart giyotin cam sistemlerinde 6 mm temperli cam kullanılır. Isı yalıtımı için 4+16+4 çift cam (DC) seçeneği mevcuttur. Çift cam m² fiyatı tekli cama göre %60–80 daha yüksektir ancak ısıtma maliyetlerinde ciddi tasarruf sağlar. Kavira Giyotin yazılımında her iki seçenek için fiyat girebilir ve karşılaştırabilirsiniz.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Birleşik kesim optimizasyonu hangi durumlarda en çok tasarruf sağlar?</summary>
+      <div class="faq-a">Aynı gün veya aynı hafta teslim edilecek birden fazla projeniz varsa birleşik kesim en fazla tasarrufu sağlar. Özellikle benzer genişliklerde ancak farklı yüksekliklerde projeleriniz olduğunda, parçaları aynı stok profilden kesmek büyük fire tasarrufu yaratır. 3-5 iş birleştirildiğinde ortalama %25-31 profil tasarrufu elde edilir.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Motorlu giyotin cam sistemi hesabında motor maliyeti nasıl eklenir?</summary>
+      <div class="faq-a">Motorlu sistemlerde sekizgen aktarma borusu ve motor adedi hesaba katılır. Kavira Giyotin yazılımında motor TL/adet ve sekizgen boru TL/m fiyatlarını ayarlar menüsünden girersiniz. Sistem otomatik olarak gerekli boru uzunluğunu hesaplar ve motor maliyetini toplam maliyete ekler.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Aluminyum fiyatı değiştiğinde ne yapmam gerekir?</summary>
+      <div class="faq-a">Kavira Giyotin yazılımında Ayarlar menüsünden aluminyum TL/kg fiyatını güncellemeniz yeterlidir. Bundan sonra yapacağınız tüm hesaplamalar güncel fiyatla yapılır. Geçmiş hesaplamalar kaydedildiği tarihteki fiyatla saklanır, geriye dönük değişiklik yapılmaz.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Giyotin cam sistemi için minimum balkon ölçüsü nedir?</summary>
+      <div class="faq-a">Hesaplama formülleri nedeniyle minimum balkon genişliği 150 mm (profil payı 149 mm çıkarılınca en az 1 mm cam kalacak şekilde) ve minimum yükseklik 264 mm olarak belirlenmiştir. Pratik açıdan 1,2 metreden dar ve 1,8 metreden kısa balkonyerlerde giyotin sistemi uygulanmaz.</div>
+    </details>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Hesaplamayı hemen başlatın</h3>
+    <p>7 gün ücretsiz deneyin. Kredi kartı gerekmez. Giyotin cam hesabınızı dakikalar içinde yapın.</p>
+    <a href="/app" class="btn-primary">🚀 Ücretsiz Hesap Aç</a>
+    <p class="btn-note">Kayıt sonrası 7 gün tüm özellikler aktif · İstediğinizde iptal edin</p>
+  </div>
+
+</div>
+
+<div class="footer-wrap">
+  <footer>
+    <div class="footer-logo">
+      <img src="/favicon.png" alt="" style="width:22px;height:22px;border-radius:6px">
+      Kavira Giyotin
+    </div>
+    <div class="footer-links">
+      <a href="/">Ana Sayfa</a>
+      <a href="/app">Uygulamaya Gir</a>
+      <a href="/terms">Kullanım Koşulları</a>
+      <a href="/privacy">Gizlilik</a>
+      <a href="/refund">İade Politikası</a>
+    </div>
+    <div class="footer-copy">© 2026 Kavira Software</div>
+  </footer>
+</div>
+
+</body>
+</html>

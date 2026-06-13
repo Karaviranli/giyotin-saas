@@ -12,20 +12,157 @@ import 'package:frontend/screens/admin_screen.dart';
 import 'package:frontend/screens/musteri_public_screen.dart';
 
 class AppColors {
-  static const background = Color(0xFF0F172A); // slate-900
-  static const surface = Color(0xFF1E293B);    // slate-800
-  static const primary = Color(0xFF3B82F6);    // blue-500
-  static const success = Color(0xFF10B981);    // emerald-500
-  static const warning = Color(0xFFF59E0B);    // amber-500
-  static const danger = Color(0xFFEF4444);     // red-500
-  static const info = Color(0xFF0EA5E9);       // sky-500
-  static const text = Color(0xFFF8FAFC);       // slate-50
-  static const textMuted = Color(0xFF94A3B8);  // slate-400
+  // ── SLATE LIGHT PALETTE — sade, profesyonel aydınlık tema ──
+  static const background  = Color(0xFFF6F7F9);  // sayfa zemini (açık gri)
+  static const surface     = Color(0xFFFFFFFF);  // kart yüzeyi (beyaz)
+  static const surfaceLow  = Color(0xFFFFFFFF);  // nav / header (beyaz, kenarla ayrılır)
+  static const surfaceHigh = Color(0xFFEEF1F4);  // hover / yükseltilmiş (açık gri)
+  static const surfaceGlass= Color(0xF2FFFFFF);  // hafif şeffaf beyaz
 
-  // Ultra High-End UI için Gradients ve Gölgeler
-  static const gradientPrimary = LinearGradient(colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)], begin: Alignment.topLeft, end: Alignment.bottomRight);
-  static const gradientSuccess = LinearGradient(colors: [Color(0xFF10B981), Color(0xFF047857)], begin: Alignment.topLeft, end: Alignment.bottomRight);
-  static const cardShadow = [BoxShadow(color: Color(0x1A000000), blurRadius: 16, offset: Offset(0, 8))];
+  static const primary = Color(0xFF3A4F6B);   // slate lacivert — tek vurgu
+  static const success = Color(0xFF1E9E6A);   // muted emerald
+  static const warning = Color(0xFFC77A0A);   // muted amber
+  static const danger  = Color(0xFFD14343);   // muted red
+  static const info    = Color(0xFF2F6FB0);   // muted blue
+  static const accent  = Color(0xFF4E6585);   // ikincil slate (vurgu ailesi)
+  static const accent2 = Color(0xFF6B7A90);   // nötr slate gri
+
+  static const text       = Color(0xFF1A1D21);  // ana metin (near-black slate)
+  static const textMuted  = Color(0xFF6B7280);  // ikincil metin (slate gri)
+  static const border     = Color(0x14000000);  // %8 black — hairline kenar
+  static const borderSoft = Color(0x0A000000);  // %4 black
+
+  // ── Gradyanlar — tek-ton, rafine ──
+  static const gradientPrimary = LinearGradient(colors: [Color(0xFF44597A), Color(0xFF2E4058)], begin: Alignment.topLeft, end: Alignment.bottomRight);
+  static const gradientSuccess = LinearGradient(colors: [Color(0xFF27A876), Color(0xFF158A5A)], begin: Alignment.topLeft, end: Alignment.bottomRight);
+  static const gradientWarning = LinearGradient(colors: [Color(0xFFD79324), Color(0xFFB36C08)], begin: Alignment.topLeft, end: Alignment.bottomRight);
+  static const gradientAccent  = LinearGradient(colors: [Color(0xFF4E6585), Color(0xFF3A4F6B)], begin: Alignment.topLeft, end: Alignment.bottomRight);
+  static const gradientHero    = LinearGradient(
+    colors: [Color(0xFF2E4058), Color(0xFF36495F), Color(0xFF3A4F6B)],
+    begin: Alignment.topLeft, end: Alignment.bottomRight,
+    stops: [0.0, 0.55, 1.0],
+  );
+  static const gradientMesh = RadialGradient(
+    colors: [Color(0x143A4F6B), Color(0x00000000)],
+    radius: 1.2, center: Alignment.topRight,
+  );
+
+  // ── Gölgeler — yumuşak, aydınlık ──
+  static const cardShadow = [BoxShadow(color: Color(0x0F1A1D21), blurRadius: 16, offset: Offset(0, 6), spreadRadius: -6)];
+  static const cardShadowDeep = [
+    BoxShadow(color: Color(0x141A1D21), blurRadius: 28, offset: Offset(0, 14), spreadRadius: -10),
+  ];
+  static List<BoxShadow> glow(Color c) => [
+    BoxShadow(color: c.withOpacity(0.16), blurRadius: 22, offset: const Offset(0, 8), spreadRadius: -10),
+  ];
+}
+
+// ── Premium widget helper'lar ─────────────────────────────────────────────
+/// Cam efektli kart — glassmorphism. Üzerine içerik konur.
+class GlassCard extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final double radius;
+  final Color? tint;
+  final List<BoxShadow>? shadow;
+  final Border? border;
+  const GlassCard({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(20),
+    this.radius = 20,
+    this.tint,
+    this.shadow,
+    this.border,
+  });
+  @override
+  Widget build(BuildContext ctx) {
+    return Container(
+      decoration: BoxDecoration(
+        color: tint ?? AppColors.surface,
+        borderRadius: BorderRadius.circular(radius),
+        border: border ?? Border.all(color: AppColors.border, width: 1),
+        boxShadow: shadow ?? AppColors.cardShadow,
+      ),
+      padding: padding,
+      child: child,
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+//  RESPONSIVE TASARIM SİSTEMİ
+// ═══════════════════════════════════════════════════════════════════════
+enum DeviceType { mobile, tablet, desktop }
+
+class Responsive {
+  static const double mobileMax  = 600;
+  static const double tabletMax  = 1100;
+
+  static DeviceType of(BuildContext ctx) {
+    final w = MediaQuery.of(ctx).size.width;
+    if (w < mobileMax) return DeviceType.mobile;
+    if (w < tabletMax) return DeviceType.tablet;
+    return DeviceType.desktop;
+  }
+
+  static bool isMobile(BuildContext c)  => of(c) == DeviceType.mobile;
+  static bool isTablet(BuildContext c)  => of(c) == DeviceType.tablet;
+  static bool isDesktop(BuildContext c) => of(c) == DeviceType.desktop;
+
+  static T val<T>(BuildContext c, {required T mobile, T? tablet, required T desktop}) {
+    switch (of(c)) {
+      case DeviceType.mobile:  return mobile;
+      case DeviceType.tablet:  return tablet ?? desktop;
+      case DeviceType.desktop: return desktop;
+    }
+  }
+
+  static double contentMaxWidth(BuildContext c) =>
+      val(c, mobile: double.infinity, tablet: 900, desktop: 1240);
+  static double pagePadding(BuildContext c) =>
+      val(c, mobile: 16, tablet: 24, desktop: 40);
+  static int gridCols(BuildContext c) =>
+      val(c, mobile: 2, tablet: 2, desktop: 4);
+}
+
+extension ResponsiveCtx on BuildContext {
+  DeviceType get device => Responsive.of(this);
+  bool get isMobileR  => Responsive.isMobile(this);
+  bool get isTabletR  => Responsive.isTablet(this);
+  bool get isDesktopR => Responsive.isDesktop(this);
+  double get pagePad => Responsive.pagePadding(this);
+}
+
+/// Animasyonlu sayı sayacı — 0'dan hedefe smooth artar
+class AnimatedCounter extends StatelessWidget {
+  final num value;
+  final Duration duration;
+  final TextStyle? style;
+  final String prefix;
+  final String suffix;
+  final int decimals;
+  const AnimatedCounter({
+    super.key,
+    required this.value,
+    this.duration = const Duration(milliseconds: 1200),
+    this.style,
+    this.prefix = '',
+    this.suffix = '',
+    this.decimals = 0,
+  });
+  @override
+  Widget build(BuildContext ctx) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: value.toDouble()),
+      duration: duration,
+      curve: Curves.easeOutCubic,
+      builder: (_, v, __) => Text(
+        '$prefix${v.toStringAsFixed(decimals)}$suffix',
+        style: style,
+      ),
+    );
+  }
 }
 
 // Global Navigator Key: Context gerektirmeyen navigasyon işlemleri (örn: Interceptor) için.
@@ -39,7 +176,7 @@ final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<Scaffol
 final dio = Dio(BaseOptions(baseUrl: AppConfig.baseUrl));
 
 // Global Theme Notifier: Tema değişikliğini anında tüm uygulamaya bildirir
-final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
+final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
 
 // Global User Notifier: Tüm uygulama genelinde kullanıcı bilgilerini tutar
 final ValueNotifier<Map<String, dynamic>?> userNotifier = ValueNotifier(null);
@@ -170,6 +307,99 @@ void showCustomSnackBar({required String message, bool isError = true}) {
   );
 }
 
+/// Sade & profesyonel "Slate Light" tema — tüm uygulamada tek tema.
+ThemeData _buildSlateTheme() {
+  final base = ThemeData.light(useMaterial3: true);
+  return base.copyWith(
+    scaffoldBackgroundColor: AppColors.background,
+    primaryColor: AppColors.primary,
+    canvasColor: AppColors.surface,
+    textTheme: base.textTheme.apply(
+      fontFamily: 'Inter',
+      bodyColor: AppColors.text,
+      displayColor: AppColors.text,
+    ),
+    colorScheme: const ColorScheme.light(
+      primary: AppColors.primary,
+      onPrimary: Colors.white,
+      secondary: AppColors.accent,
+      onSecondary: Colors.white,
+      surface: AppColors.surface,
+      onSurface: AppColors.text,
+      error: AppColors.danger,
+      onError: Colors.white,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.surfaceLow,
+      foregroundColor: AppColors.text,
+      elevation: 0,
+      scrolledUnderElevation: 0.5,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Color(0x0F000000),
+      centerTitle: false,
+      titleTextStyle: TextStyle(fontFamily: 'Inter', fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.text, letterSpacing: -0.3),
+      iconTheme: IconThemeData(color: AppColors.text),
+    ),
+    cardTheme: CardThemeData(
+      color: AppColors.surface,
+      elevation: 0,
+      shadowColor: const Color(0x0F1A1D21),
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: const BorderSide(color: AppColors.border, width: 1),
+      ),
+    ),
+    dividerTheme: const DividerThemeData(color: AppColors.border, thickness: 1),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: const Color(0xFFF1F3F6),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.border)),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.border)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primary, width: 1.6)),
+      labelStyle: const TextStyle(color: AppColors.textMuted, fontWeight: FontWeight.w500),
+      floatingLabelStyle: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
+      hintStyle: TextStyle(color: AppColors.textMuted.withOpacity(0.7)),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        textStyle: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600, fontSize: 14, letterSpacing: 0.1),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.text,
+        side: const BorderSide(color: AppColors.border),
+        textStyle: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600, fontSize: 14),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: AppColors.primary,
+        textStyle: const TextStyle(fontFamily: 'Inter', fontWeight: FontWeight.w600, fontSize: 14),
+      ),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? AppColors.primary : Colors.grey.shade400),
+      trackColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? AppColors.primary.withOpacity(0.35) : Colors.grey.shade300),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: AppColors.text,
+      contentTextStyle: const TextStyle(color: Colors.white, fontFamily: 'Inter'),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+  );
+}
+
 void main() async {
   // Eklentileri başlatmak için gerekli
   WidgetsFlutterBinding.ensureInitialized();
@@ -247,11 +477,8 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final String? token = prefs.getString('access_token');
   
-  // Hafızadan kayıtlı temayı oku (Yoksa varsayılan karanlık mod başlar)
-  final String? savedTheme = prefs.getString('theme_mode');
-  if (savedTheme == 'light') {
-    themeNotifier.value = ThemeMode.light;
-  }
+  // Sade & profesyonel aydınlık tema — tek tema kullanılıyor
+  themeNotifier.value = ThemeMode.light;
   
   final bool isFirstTime = prefs.getBool('is_first_time') ?? true;
 
@@ -343,115 +570,9 @@ class _KaviraAppState extends State<KaviraApp> {
           navigatorKey: navigatorKey,
           scaffoldMessengerKey: scaffoldMessengerKey,
           themeMode: currentMode,
-          // --- AYDINLIK MOD TEMA AYARLARI ---
-          theme: ThemeData.light().copyWith(
-            primaryColor: AppColors.primary,
-            scaffoldBackgroundColor: const Color(0xFFF1F5F9),
-            textTheme: const TextTheme(
-              bodyLarge: TextStyle(color: Color(0xFF0F172A)),
-              bodyMedium: TextStyle(color: Color(0xFF0F172A)),
-              bodySmall: TextStyle(color: Color(0xFF64748B)),
-              titleLarge: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.w700),
-              titleMedium: TextStyle(color: Color(0xFF0F172A), fontWeight: FontWeight.w600),
-              labelLarge: TextStyle(color: Color(0xFF0F172A)),
-            ),
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary,
-              surface: Colors.white,
-              onSurface: Color(0xFF0F172A),
-              onBackground: Color(0xFF0F172A),
-            ),
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white,
-              foregroundColor: Color(0xFF0F172A),
-              elevation: 0,
-              centerTitle: true,
-              titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFF0F172A), letterSpacing: 1),
-            ),
-            cardTheme: CardThemeData(
-              color: Colors.white,
-              elevation: 2,
-              shadowColor: Colors.black12,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            ),
-            inputDecorationTheme: InputDecorationTheme(
-              filled: true,
-              fillColor: const Color(0xFFEFF2F7),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
-              labelStyle: const TextStyle(color: Color(0xFF64748B)),
-              hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-            ),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-            ),
-            dividerColor: const Color(0xFFE2E8F0),
-            switchTheme: SwitchThemeData(
-              thumbColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? AppColors.primary : Colors.grey.shade400),
-              trackColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? AppColors.primary.withOpacity(0.3) : Colors.grey.shade300),
-            ),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
-          },
-        ),
-          ),
-          // --- KARANLIK MOD TEMA AYARLARI ---
-          darkTheme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: AppColors.background,
-            primaryColor: AppColors.primary,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: AppColors.surface,
-              elevation: 0,
-              centerTitle: true,
-              titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.text, letterSpacing: 1),
-            ),
-            cardTheme: CardThemeData(
-              color: AppColors.surface,
-              elevation: 0,
-              shadowColor: Colors.black38,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            ),
-            inputDecorationTheme: InputDecorationTheme(
-              filled: true,
-              fillColor: AppColors.background,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
-              labelStyle: const TextStyle(color: AppColors.textMuted),
-            ),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
-                elevation: 0,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-            ),
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
-          },
-        ),
-          ),
+          // --- TEK PROFESYONEL AYDINLIK TEMA (Slate Light) ---
+          theme: _buildSlateTheme(),
+          darkTheme: _buildSlateTheme(),
           home: _resolveInitialScreen(),
           routes: {
             '/terms': (_) => const TermsScreen(),

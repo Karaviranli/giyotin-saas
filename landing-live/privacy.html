@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gizlilik ve KVKK | Kavira Software</title>
+<meta name="description" content="Kişisel verilerinizin işlenmesine ilişkin KVKK aydınlatma metni.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%23FFD84A'/%3E%3Cpath d='M22 18 L32 18 L32 62 L22 62 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L52 18 L58 24 L42 40 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L42 50 L36 56 L32 52 Z' fill='%23080909'/%3E%3Cpath d='M44 52 L58 62 L52 62 L38 54 Z' fill='%23080909'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080909;--bg-2:#0d0e10;--surface:#15171a;--surface-2:#1a1d22;--border:#23262b;--border-2:#2d3138;--text:#fafafa;--text-2:#d4d6da;--text-muted:#a0a4ab;--text-dim:#666870;--brand:#FFD84A;--blue:#5B8DEF;--green:#30D158;--orange:#FF6B4A;--r-md:12px;--r-lg:16px}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(8,9,9,.85);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:14px;letter-spacing:1.5px}
+.brand-logo{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 20px rgba(255,216,74,.25)}
+.brand-logo svg{width:100%;height:100%;display:block}
+.brand-text{display:flex;gap:5px}
+.brand-text span:last-child{color:var(--brand)}
+.back-btn{color:var(--text-muted);font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s}
+.back-btn:hover{color:var(--text)}
+
+main{max-width:780px;margin:0 auto;padding:60px 24px 80px}
+.page-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.page-tag::before{content:'// '}
+.page-title{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px;background:linear-gradient(180deg,var(--text) 55%,var(--text-muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-date{font-size:12px;color:var(--text-dim);margin-bottom:44px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+
+h2{font-size:20px;font-weight:700;margin:42px 0 14px;color:var(--text);letter-spacing:-.3px;position:relative;padding-left:18px}
+h2::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--brand);border-radius:2px}
+p{font-size:15px;color:var(--text-2);margin-bottom:14px;line-height:1.7}
+ul{list-style:none;padding-left:0;margin-bottom:14px}
+ul li{font-size:15px;color:var(--text-2);margin-bottom:10px;padding-left:22px;position:relative;line-height:1.65}
+ul li::before{content:'→';position:absolute;left:0;color:var(--brand);font-weight:600}
+a{color:var(--brand);transition:color .15s}
+a:hover{color:#fff}
+strong{color:var(--text);font-weight:600}
+hr{border:none;border-top:1px solid var(--border);margin:48px 0 32px}
+
+.highlight{background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--border-2);border-radius:var(--r-lg);padding:24px 26px;margin-bottom:32px;position:relative;overflow:hidden}
+.highlight::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--brand)}
+.highlight p{margin-bottom:0;font-size:14px;color:var(--text-2)}
+.highlight .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:block}
+
+.notice-free{background:rgba(48,209,88,.06);border:1px solid rgba(48,209,88,.25);border-radius:var(--r-lg);padding:22px 26px;margin:32px 0}
+.notice-free::before{background:var(--green)}
+.notice-free .label{color:var(--green)}
+
+table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-2)}
+th{background:var(--surface-2);color:var(--text);font-weight:600;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border-2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-2)}
+tr:last-child td{border-bottom:0}
+
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:48px 24px 32px;color:var(--text-muted);font-size:13px}
+.foot-grid{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-bottom:24px}
+.foot-grid a{color:var(--text-muted);padding:6px 14px;position:relative;transition:color .15s}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid a:not(:last-child)::after{content:'';position:absolute;right:0;top:50%;height:14px;width:1px;background:var(--border-2);transform:translateY(-50%)}
+.foot-bottom{text-align:center;padding-top:18px;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:.5px}
+.foot-bottom a{color:var(--brand)}</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="brand">
+    <div class="brand-logo"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" rx="18" fill="#FFD84A"/><path d="M22 18 L32 18 L32 62 L22 62 Z" fill="#080909"/><path d="M32 40 L52 18 L58 24 L42 40 Z" fill="#080909"/><path d="M32 40 L42 50 L36 56 L32 52 Z" fill="#080909"/><path d="M44 52 L58 62 L52 62 L38 54 Z" fill="#080909"/></svg></div>
+    <div class="brand-text"><span>KAVIRA</span><span>SOFTWARE</span></div>
+  </a>
+  <a href="/" class="back-btn">← Ana Sayfa</a>
+</nav>
+<main>
+  <span class="page-tag">yasal · 02</span>
+  <h1 class="page-title">Gizlilik ve KVKK</h1>
+  <p class="page-date">Son güncelleme: 6 Haziran 2026</p>
+
+<div class="highlight">
+  <span class="label">KVKK Aydınlatma Metni</span>
+  <p>6698 Sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında veri sorumlusu sıfatıyla <strong>Kavira Software</strong> (bireysel girişim), platformunda kişisel verilerinizi aşağıdaki çerçevede işler. Veri sorumlusu temsilcisinin kimlik bilgileri yazılı talep üzerine 5 iş günü içinde paylaşılır (madde 1).</p>
+</div>
+
+<h2>1. Veri Sorumlusu</h2>
+<p>
+  <strong>Kavira Software</strong> (bireysel girişim olarak faaliyet göstermektedir)<br>
+  Konum: Ankara, Türkiye<br>
+  İletişim: <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a>
+</p>
+<p>Veri sorumlusu temsilcisinin kimlik bilgileri (T.C. kimlik no, açık adres vb.), KVKK m.13 uyarınca yapılan yazılı veri sahibi başvurularında <strong>en geç 5 iş günü içinde</strong> başvuru sahibine e-posta yoluyla iletilir. Bu yöntem, KVKK m.10 aydınlatma yükümlülüğünün ifa edilmesi ve bireysel girişimcinin kişisel bilgilerinin korunması arasında denge sağlar.</p>
+<p style="font-size:13px;color:var(--text-muted)">Not: Bireysel girişim niteliği ve veri işleme hacminin VERBİS kayıt eşiklerinin altında olması nedeniyle VERBİS'te kayıt yapılmamıştır (KVKK m.16/2 istisna kapsamında).</p>
+
+<h2>2. İşlenen Kişisel Veriler</h2>
+<table>
+<thead><tr><th>Kategori</th><th>İşlenen Veri</th></tr></thead>
+<tbody>
+<tr><td>Kimlik</td><td>Ad, soyad</td></tr>
+<tr><td>İletişim</td><td>E-posta, telefon, adres, şehir</td></tr>
+<tr><td>İşlem Güvenliği</td><td>Kullanıcı adı, şifre özeti (hash), oturum tokeni, IP adresi, tarayıcı bilgisi, giriş tarihi</td></tr>
+<tr><td>Hizmet Kullanımı</td><td>Hesaplama geçmişi, kayıtlar, ürün tercihleri</td></tr>
+</tbody></table>
+
+<h2>3. İşleme Amacı ve Hukuki Sebep</h2>
+<table>
+<thead><tr><th>Amaç</th><th>Hukuki Sebep (KVKK m.5)</th></tr></thead>
+<tbody>
+<tr><td>Sözleşmenin ifası, hesap yönetimi</td><td>5/2-c (Sözleşmenin kurulması/ifası)</td></tr>
+<tr><td>Güvenlik, dolandırıcılık önleme</td><td>5/2-f (Meşru menfaat)</td></tr>
+<tr><td>Yasal log saklama yükümlülüğü</td><td>5/2-ç (Hukuki yükümlülük)</td></tr>
+<tr><td>Geri bildirim, destek</td><td>5/2-c (Sözleşmenin ifası)</td></tr>
+<tr><td>İsteğe bağlı duyurular</td><td>5/1 (Açık rıza — geri çekilebilir)</td></tr>
+</tbody></table>
+
+<h2>4. Verilerin Aktarımı</h2>
+<ul>
+  <li><strong>Hetzner Online GmbH (Almanya):</strong> Sunucu barındırma. GDPR/Standart Sözleşme Maddeleri kapsamında yeterli koruma sağlanır.</li>
+  <li><strong>Let's Encrypt (ABD):</strong> Yalnızca SSL sertifika doğrulaması. Kişisel veri aktarımı yapılmaz.</li>
+  <li>Bunlar dışında yasal yükümlülük olmadıkça <strong>hiçbir üçüncü tarafa</strong> kişisel veri aktarılmaz.</li>
+</ul>
+
+<h2>5. Saklama Süreleri</h2>
+<ul>
+  <li>Hesap aktif olduğu sürece + hesap silindikten sonra <strong>30 gün</strong></li>
+  <li>Log kayıtları (IP, oturum): 5651 sayılı yasa kapsamında <strong>en az 6 ay</strong>, en çok 2 yıl</li>
+  <li>İletişim geçmişi (e-posta): destek/dokümantasyon amacıyla 1 yıl</li>
+</ul>
+
+<h2>6. KVKK Madde 11 — Haklarınız</h2>
+<p>Veri sorumlusuna başvurarak;</p>
+<ul>
+  <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
+  <li>İşlenmişse buna ilişkin bilgi talep etme</li>
+  <li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+  <li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</li>
+  <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
+  <li>Silme, yok etme veya anonim hale getirme talep etme (unutulma hakkı)</li>
+  <li>Aktarıldığı üçüncü kişilere de bu işlemlerin bildirilmesini talep etme</li>
+  <li>Otomatik sistemler aracılığıyla aleyhinize bir sonucun ortaya çıkmasına itiraz etme</li>
+  <li>Kanuna aykırı işlenme nedeniyle zarara uğramışsanız zararınızın giderilmesini talep etme</li>
+</ul>
+<p>Taleplerinizi <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a> adresine iletebilirsiniz. Yanıt süresi: KVKK gereği <strong>en geç 30 gün</strong>.</p>
+
+<h2>7. Çerezler</h2>
+<p>Çerez kullanımı için ayrıntılı bilgi: <a href="/cookies">Çerez Politikası</a>.</p>
+
+<h2>8. Veri Güvenliği Önlemleri</h2>
+<ul>
+  <li>TLS 1.3 ile uçtan uca şifreli iletişim</li>
+  <li>Bcrypt ile tek yönlü şifre özetleme</li>
+  <li>JWT tabanlı oturum yönetimi, otomatik süre dolumu</li>
+  <li>Rate limiting (kötü niyetli giriş denemelerine karşı)</li>
+  <li>Fail2ban ile saldırı tespit ve engelleme</li>
+  <li>Günlük otomatik veritabanı yedekleme</li>
+  <li>Sunucu firewall (UFW) — yalnız 80/443/22 portları açık</li>
+  <li>Content-Security-Policy, HSTS, X-Frame-Options başlıkları aktif</li>
+</ul>
+
+<h2>9. Çocukların Kişisel Verileri</h2>
+<p>Platform 18 yaş altı kullanıcılara yönelik değildir. Bilinçli olarak 18 yaş altı kişilerden veri toplanmaz. Bu tür bir verinin işlendiği fark edilirse derhal silinir.</p>
+
+<h2>10. Politika Değişiklikleri</h2>
+<p>Bu metin güncellendiğinde sayfa başındaki tarih değişir. Önemli değişiklikler kayıtlı e-posta adresinize bildirilir.</p>
+</main>
+<footer>
+  <div class="foot-grid">
+    <a href="/">Ana Sayfa</a>
+    <a href="/terms">Kullanım Koşulları</a>
+    <a href="/privacy">Gizlilik (KVKK)</a>
+    <a href="/cookies">Çerez Politikası</a>
+    <a href="/accessibility">Erişilebilirlik</a>
+  </div>
+  <div class="foot-bottom">© 2026 Kavira Software · Ankara, Türkiye · <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a></div>
+</footer>
+</body></html>

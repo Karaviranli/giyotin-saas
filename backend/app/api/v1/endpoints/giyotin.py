@@ -166,6 +166,105 @@ def excel_indir(
     fname = f"BINTELLI_{request.project_name}_{int(request.width)}x{int(request.height)}.xlsx"
     return FileResponse(template_path, filename=fname)
 
+@router.get("/my-insights")
+def get_my_insights(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Kullanicinin kendi sirketine ait detayli istatistikler."""
+    from datetime import datetime, timedelta
+    from sqlalchemy import func
+    now = datetime.utcnow()
+    d30 = now - timedelta(days=30)
+    d7  = now - timedelta(days=7)
+
+    records = db.query(GiyotinRecord).filter(
+        GiyotinRecord.company_id == current_user.company_id
+    ).all()
+
+    total = len(records)
+    last_30 = sum(1 for r in records if r.created_at and r.created_at >= d30)
+    last_7  = sum(1 for r in records if r.created_at and r.created_at >= d7)
+
+    costs = []
+    sistem_freq = {}
+    profil_freq = {}
+    fire_list = []
+    saatlik = [0]*24
+    haftalik_aktivite = {}
+    last_record_date = None
+    for r in records:
+        cd = r.cost_details or {}
+        tc = cd.get('total_cost') or cd.get('toplam_tl') or 0
+        try: tcf = float(tc)
+        except: tcf = 0.0
+        if tcf > 0: costs.append(tcf)
+        st = (r.system_type or 'Belirsiz').strip()
+        sistem_freq[st] = sistem_freq.get(st, 0) + 1
+        profil_detay = cd.get('profil_detay') or cd.get('profiller') or []
+        if isinstance(profil_detay, list):
+            for pd in profil_detay:
+                if isinstance(pd, dict):
+                    k = (pd.get('kod') or '').strip()
+                    if k: profil_freq[k] = profil_freq.get(k, 0) + 1
+        fp = cd.get('fire_payi') or cd.get('fire_yuzde')
+        try:
+            if fp is not None: fire_list.append(float(fp))
+        except: pass
+        if r.created_at:
+            saatlik[r.created_at.hour] += 1
+            wkey = r.created_at.strftime('%Y-%W')
+            haftalik_aktivite[wkey] = haftalik_aktivite.get(wkey, 0) + 1
+            if last_record_date is None or r.created_at > last_record_date:
+                last_record_date = r.created_at
+
+    ort = round(sum(costs)/len(costs), 2) if costs else 0
+    mx = max(costs) if costs else 0
+    toplam_maliyet = round(sum(costs), 2)
+    ort_fire = round(sum(fire_list)/len(fire_list), 2) if fire_list else 0
+    top_sistem = sorted(sistem_freq.items(), key=lambda x: x[1], reverse=True)[:5]
+    top_profil = sorted(profil_freq.items(), key=lambda x: x[1], reverse=True)[:8]
+
+    # En aktif gun (haftanin gunu)
+    gun_aktivite = [0]*7
+    for r in records:
+        if r.created_at:
+            gun_aktivite[r.created_at.weekday()] += 1
+
+    # Subscription bilgisi
+    from app.models.subscription import Subscription
+    sub = db.query(Subscription).filter(Subscription.company_id == current_user.company_id).first()
+    sub_info = None
+    if sub:
+        kalan = None
+        if sub.end_date:
+            delta = (sub.end_date - now).days
+            kalan = delta
+        sub_info = {
+            'plan_name': sub.plan_name,
+            'is_active': bool(sub.is_active),
+            'end_date': sub.end_date.isoformat() if sub.end_date else None,
+            'gun_kaldi': kalan,
+        }
+
+    return {
+        'toplam_proje': total,
+        'son_30_gun': last_30,
+        'son_7_gun': last_7,
+        'son_kayit_tarihi': last_record_date.isoformat() if last_record_date else None,
+        'finansal': {
+            'toplam_hesaplanan_tl': toplam_maliyet,
+            'ortalama_proje_maliyeti_tl': ort,
+            'en_yuksek_proje_tl': round(mx, 2),
+            'ortalama_fire_yuzde': ort_fire,
+        },
+        'top_sistemler': [{'isim': k, 'adet': v} for k, v in top_sistem],
+        'top_profiller': [{'kod': k, 'frekans': v} for k, v in top_profil],
+        'saatlik_aktivite': saatlik,
+        'gun_aktivite': gun_aktivite,
+        'subscription': sub_info,
+    }
+
 @router.get("/records")
 def get_giyotin_records(
     db: Session = Depends(get_db),
@@ -448,3 +547,102 @@ def public_quote(request: PublicQuoteRequest):
         "birim_fiyat_tl": round(genel_toplam / qty, 2),
         "not": "Bu fiyat varsayılan piyasa fiyatlarıyla hesaplanmış tahmini bir değerdir."
     }
+
+# ═══════════════════════════════════════════════════════════════════════
+# SETTINGS V2 — gruplu, tam kapsamlı fiyat ayarları
+# ═══════════════════════════════════════════════════════════════════════
+SETTINGS_SCHEMA_V2 = [
+    ("aluminyum_kg_tl",       "Alüminyum",            "Temel Malzeme",  "TL/kg",     368.0),
+    ("cam_m2_tl",             "Cam (4+16+4 Isıcam)",  "Temel Malzeme",  "TL/m²",     1915.0),
+    ("kayis_m_tl",            "Kayış",                "Temel Malzeme",  "TL/m",      150.0),
+    ("boru_m_tl",             "Sekizgen Boru 70",     "Temel Malzeme",  "TL/m",      204.0),
+    ("kayisli_set_tl",        "Kayışlı Set",          "Motor Sistemi",  "TL/adet",   4104.0),
+    ("kumanda_tl",            "Kumanda",              "Motor Sistemi",  "TL/adet",   860.0),
+    ("motor_tl",              "Motor",                "Motor Sistemi",  "TL/adet",   3765.0),
+    ("kose_takozu_tl",        "Köşe Takozu",          "Aksesuarlar",    "TL/adet",   45.0),
+    ("rulman_yatagi_tl",      "Rulman Yatağı",        "Aksesuarlar",    "TL/adet",   28.0),
+    ("boru_basi_tl",          "Boru Başı Kapak",      "Aksesuarlar",    "TL/adet",   35.0),
+    ("vasistas_takoz_tl",     "Vasistas Takoz",       "Aksesuarlar",    "TL/adet",   25.0),
+    ("merkezleme_takozu_tl",  "Merkezleme Takozu",    "Aksesuarlar",    "TL/adet",   12.0),
+    ("baza_kapak_tl",         "Baza Kapak",           "Aksesuarlar",    "TL/adet",   18.0),
+    ("cam_fitili_m_tl",       "Cam Fitili (EPDM)",    "Fitiller",       "TL/m",      8.5),
+    ("kapak_fitili_m_tl",     "Kapak Fitili",         "Fitiller",       "TL/m",      6.0),
+    ("firca_fitili_m_tl",     "Fırça Fitili",         "Fitiller",       "TL/m",      4.5),
+    ("flock_fitili_m_tl",     "Flock Fitili",         "Fitiller",       "TL/m",      5.0),
+    ("kenet_fitili_m_tl",     "Kenet Fitili",         "Fitiller",       "TL/m",      7.0),
+    ("zincir_m_tl",           "Zincir",               "Zincir Sistemi", "TL/m",      95.0),
+    ("zincir_dislisi_tl",     "Zincir Dişlisi",       "Zincir Sistemi", "TL/adet",   145.0),
+    ("zincir_yonlendirici_tl","Zincir Yönlendirici",  "Zincir Sistemi", "TL/adet",   65.0),
+    ("kayis_kasnagi_tl",      "Kayış Kasnağı",        "Zincir Sistemi", "TL/adet",   85.0),
+    ("iscilik_sistem_tl",     "İşçilik (sistem başı)","Fiyatlandırma",  "TL/sistem", 1500.0),
+    ("nakliye_montaj_tl",     "Nakliye/Montaj",       "Fiyatlandırma",  "TL",        0.0),
+    ("genel_gider_yuzde",     "Genel Gider",          "Fiyatlandırma",  "%",         2.5),
+    ("kar_marji_yuzde",       "Kâr Marjı",            "Fiyatlandırma",  "%",         35.0),
+    ("kdv_yuzde",             "KDV",                  "Fiyatlandırma",  "%",         20.0),
+]
+
+
+@router.get("/settings/v2")
+def get_settings_v2(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Gruplu, tam kapsamlı fiyat ayarları."""
+    from app.models.company_settings import CompanySettings
+    cs = db.query(CompanySettings).filter(
+        CompanySettings.company_id == current_user.company_id
+    ).first()
+    if not cs:
+        cs = CompanySettings(company_id=current_user.company_id)
+        db.add(cs)
+        db.commit()
+        db.refresh(cs)
+
+    gruplar = {}
+    for col, label, grup, birim, default in SETTINGS_SCHEMA_V2:
+        gruplar.setdefault(grup, [])
+        val = getattr(cs, col, None)
+        gruplar[grup].append({
+            "key": col, "label": label, "unit": birim,
+            "value": float(val) if val is not None else default,
+        })
+
+    return {
+        "company_name": current_user.company.name if current_user.company else "Şirket",
+        "gruplar": [
+            {"isim": g, "alanlar": gruplar[g]}
+            for g in ["Fiyatlandırma", "Temel Malzeme", "Motor Sistemi",
+                      "Aksesuarlar", "Fitiller", "Zincir Sistemi"]
+            if g in gruplar
+        ],
+    }
+
+
+@router.post("/settings/v2")
+def update_settings_v2(
+    new_settings: Dict[str, float],
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Kolon adı → değer formatında ayarları kaydeder."""
+    if not current_user.is_company_admin:
+        raise HTTPException(status_code=403, detail="Yalnızca şirket yöneticisi değiştirebilir.")
+    from app.models.company_settings import CompanySettings
+    cs = db.query(CompanySettings).filter(
+        CompanySettings.company_id == current_user.company_id
+    ).first()
+    if not cs:
+        cs = CompanySettings(company_id=current_user.company_id)
+        db.add(cs)
+
+    valid_keys = {s[0] for s in SETTINGS_SCHEMA_V2}
+    updated = 0
+    for key, val in new_settings.items():
+        if key in valid_keys:
+            try:
+                setattr(cs, key, float(val))
+                updated += 1
+            except (ValueError, TypeError):
+                pass
+    db.commit()
+    return {"message": f"{updated} ayar güncellendi.", "updated": updated}

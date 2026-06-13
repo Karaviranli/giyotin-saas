@@ -1,0 +1,24 @@
+# Kavira Giyotin - SaaS landing + customer portal
+# https://kaviragiyotin.online/
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /app/zd-grup/
+Disallow: /admin/
+
+# Google bot - hizli tarama
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /app/zd-grup/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://kaviragiyotin.online/sitemap.xml

@@ -18,10 +18,10 @@ class AppConfig {
   static String get baseUrl {
     switch (environment) {
       case Environment.prod:
-        return 'https://api.kaviragiyotin.com'; // Canlı sunucu adresi
+        return 'https://kaviragiyotin.online'; // Canlı sunucu adresi
       case Environment.dev:
       default:
-        return 'http://localhost:8000'; // Yerel geliştirme adresi
+        return 'https://kaviragiyotin.online'; // Yerel geliştirme adresi
     }
   }
 

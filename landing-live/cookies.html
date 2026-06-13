@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Çerez Politikası | Kavira Software</title>
+<meta name="description" content="Kavira Software platformunda kullanılan çerezler ve yerel depo.">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='18' fill='%23FFD84A'/%3E%3Cpath d='M22 18 L32 18 L32 62 L22 62 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L52 18 L58 24 L42 40 Z' fill='%23080909'/%3E%3Cpath d='M32 40 L42 50 L36 56 L32 52 Z' fill='%23080909'/%3E%3Cpath d='M44 52 L58 62 L52 62 L38 54 Z' fill='%23080909'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080909;--bg-2:#0d0e10;--surface:#15171a;--surface-2:#1a1d22;--border:#23262b;--border-2:#2d3138;--text:#fafafa;--text-2:#d4d6da;--text-muted:#a0a4ab;--text-dim:#666870;--brand:#FFD84A;--blue:#5B8DEF;--green:#30D158;--orange:#FF6B4A;--r-md:12px;--r-lg:16px}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(8,9,9,.85);backdrop-filter:blur(16px) saturate(180%);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:14px;letter-spacing:1.5px}
+.brand-logo{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 20px rgba(255,216,74,.25)}
+.brand-logo svg{width:100%;height:100%;display:block}
+.brand-text{display:flex;gap:5px}
+.brand-text span:last-child{color:var(--brand)}
+.back-btn{color:var(--text-muted);font-size:13px;display:flex;align-items:center;gap:6px;transition:color .15s}
+.back-btn:hover{color:var(--text)}
+
+main{max-width:780px;margin:0 auto;padding:60px 24px 80px}
+.page-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.page-tag::before{content:'// '}
+.page-title{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:14px;background:linear-gradient(180deg,var(--text) 55%,var(--text-muted) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-date{font-size:12px;color:var(--text-dim);margin-bottom:44px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+
+h2{font-size:20px;font-weight:700;margin:42px 0 14px;color:var(--text);letter-spacing:-.3px;position:relative;padding-left:18px}
+h2::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--brand);border-radius:2px}
+p{font-size:15px;color:var(--text-2);margin-bottom:14px;line-height:1.7}
+ul{list-style:none;padding-left:0;margin-bottom:14px}
+ul li{font-size:15px;color:var(--text-2);margin-bottom:10px;padding-left:22px;position:relative;line-height:1.65}
+ul li::before{content:'→';position:absolute;left:0;color:var(--brand);font-weight:600}
+a{color:var(--brand);transition:color .15s}
+a:hover{color:#fff}
+strong{color:var(--text);font-weight:600}
+hr{border:none;border-top:1px solid var(--border);margin:48px 0 32px}
+
+.highlight{background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--border-2);border-radius:var(--r-lg);padding:24px 26px;margin-bottom:32px;position:relative;overflow:hidden}
+.highlight::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--brand)}
+.highlight p{margin-bottom:0;font-size:14px;color:var(--text-2)}
+.highlight .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brand);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:block}
+
+.notice-free{background:rgba(48,209,88,.06);border:1px solid rgba(48,209,88,.25);border-radius:var(--r-lg);padding:22px 26px;margin:32px 0}
+.notice-free::before{background:var(--green)}
+.notice-free .label{color:var(--green)}
+
+table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:14px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-2)}
+th{background:var(--surface-2);color:var(--text);font-weight:600;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border-2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text-2)}
+tr:last-child td{border-bottom:0}
+
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:48px 24px 32px;color:var(--text-muted);font-size:13px}
+.foot-grid{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-bottom:24px}
+.foot-grid a{color:var(--text-muted);padding:6px 14px;position:relative;transition:color .15s}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid a:not(:last-child)::after{content:'';position:absolute;right:0;top:50%;height:14px;width:1px;background:var(--border-2);transform:translateY(-50%)}
+.foot-bottom{text-align:center;padding-top:18px;border-top:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:.5px}
+.foot-bottom a{color:var(--brand)}</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="brand">
+    <div class="brand-logo"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" rx="18" fill="#FFD84A"/><path d="M22 18 L32 18 L32 62 L22 62 Z" fill="#080909"/><path d="M32 40 L52 18 L58 24 L42 40 Z" fill="#080909"/><path d="M32 40 L42 50 L36 56 L32 52 Z" fill="#080909"/><path d="M44 52 L58 62 L52 62 L38 54 Z" fill="#080909"/></svg></div>
+    <div class="brand-text"><span>KAVIRA</span><span>SOFTWARE</span></div>
+  </a>
+  <a href="/" class="back-btn">← Ana Sayfa</a>
+</nav>
+<main>
+  <span class="page-tag">yasal · 03</span>
+  <h1 class="page-title">Çerez Politikası</h1>
+  <p class="page-date">Son güncelleme: 6 Haziran 2026</p>
+
+<div class="highlight">
+  <span class="label">Çerez Politikası</span>
+  <p>Bu sayfa, kavirasoftware.com ve bağlı platformlarda kullanılan çerezleri ve benzer teknolojileri açıklar.</p>
+</div>
+
+<h2>1. Çerez Nedir?</h2>
+<p>Çerezler, ziyaret ettiğiniz web sitesinin tarayıcınıza yerleştirdiği küçük metin dosyalarıdır. Oturum durumunu, dil/tema tercihlerinizi ve temel kullanım örüntülerini hatırlar.</p>
+
+<h2>2. Kullandığımız Çerezler</h2>
+<table>
+<thead><tr><th>Tür</th><th>Amaç</th><th>Süre</th></tr></thead>
+<tbody>
+<tr><td><strong>Zorunlu</strong></td><td>Oturum tokeni, kimlik doğrulama</td><td>Oturum sonu / 30 gün</td></tr>
+<tr><td><strong>İşlevsel</strong></td><td>Tema, dil, çerez onayı tercihi</td><td>1 yıl</td></tr>
+<tr><td><strong>Performans</strong></td><td>Service Worker önbelleği (hızlı yükleme)</td><td>Tarayıcı temizleyene kadar</td></tr>
+</tbody></table>
+<p style="margin-top:14px"><strong>Onay verirseniz</strong> aşağıdaki analitik araçları kullanırız (KVKK uyumlu, anonim):</p>
+<table>
+<thead><tr><th>Araç</th><th>Amaç</th><th>Veri</th><th>Süre</th></tr></thead>
+<tbody>
+<tr><td><strong>Google Analytics 4</strong></td><td>Sayfa görüntüleme, ziyaretçi sayısı, kaynak (anonim IP)</td><td>İlk taraf çerez (_ga, _ga_*)</td><td>24 ay</td></tr>
+<tr><td><strong>Microsoft Clarity</strong></td><td>Heatmap, anonim oturum kaydı (kişisel veri otomatik maskelenir)</td><td>İlk taraf çerez (_clck, _clsk)</td><td>1 yıl</td></tr>
+</tbody></table>
+<p>Bu çerezler <strong>yalnızca açık onayınızdan sonra</strong> yüklenir. Ana sayfada çıkan bildirimde "Yalnız Zorunlu" seçerseniz analitik çerez kullanılmaz. <strong>Reklam veya remarketing çerezi yoktur.</strong></p>
+
+<h2>3. Üçüncü Taraf İçerikleri</h2>
+<ul>
+  <li><strong>Google Fonts:</strong> Roboto/Inter fontları için. Yalnızca font dosyası iletilir; çerez yerleştirilmez.</li>
+  <li><strong>Hetzner:</strong> Sunucu kaynaklı — çerez yerleştirmez.</li>
+</ul>
+
+<h2>4. localStorage ve SessionStorage</h2>
+<p>Aşağıdaki bilgiler tarayıcınızın yerel deposunda tutulur (çerez değil, ama benzer mantık):</p>
+<ul>
+  <li>Oturum tokeni (giriş yaptığınızda)</li>
+  <li>Çerez bildirim onayı (bir kez gösterilmemesi için)</li>
+  <li>Tema/dil tercihleri</li>
+</ul>
+<p>Çıkış yaptığınızda veya hesabınızı sildiğinizde tüm yerel veriler temizlenir.</p>
+
+<h2>5. Çerez Yönetimi</h2>
+<p>Tarayıcı ayarlarınızdan çerezleri silebilir veya engelleyebilirsiniz. <strong>Zorunlu çerezleri engellemek</strong> oturum açmanızı engeller.</p>
+<ul>
+  <li><strong>Chrome:</strong> Ayarlar → Gizlilik ve güvenlik → Çerezler</li>
+  <li><strong>Firefox:</strong> Ayarlar → Gizlilik ve Güvenlik → Çerezler ve Site Verileri</li>
+  <li><strong>Safari:</strong> Tercihler → Gizlilik → Web sitesi verilerini yönet</li>
+  <li><strong>Edge:</strong> Ayarlar → Çerezler ve site izinleri</li>
+</ul>
+
+<h2>6. Değişiklikler</h2>
+<p>Politika güncellendiğinde üstteki tarih değişir; önemli değişiklikler e-posta ile bildirilir.</p>
+</main>
+<footer>
+  <div class="foot-grid">
+    <a href="/">Ana Sayfa</a>
+    <a href="/terms">Kullanım Koşulları</a>
+    <a href="/privacy">Gizlilik (KVKK)</a>
+    <a href="/cookies">Çerez Politikası</a>
+    <a href="/accessibility">Erişilebilirlik</a>
+  </div>
+  <div class="foot-bottom">© 2026 Kavira Software · Ankara, Türkiye · <a href="mailto:kavirasoftware@gmail.com">kavirasoftware@gmail.com</a></div>
+</footer>
+</body></html>
