@@ -158,7 +158,14 @@ async def register(request: Request, req: RegisterRequest, db: Session = Depends
     db.add(new_company)
     db.commit()
     db.refresh(new_company)
-    
+
+    # ── YENİ ŞİRKET → OTOMATİK DEFAULT CompanySettings (BUG FIX 2026-06-14) ──
+    # Önceden sadece Company yaratılıyordu, CompanySettings yoktu → giyotin hesabı
+    # null fiyat alanlarıyla çalışıyordu. Şimdi tüm default değerlerle otomatik kayıt.
+    from app.models.company_settings import CompanySettings
+    default_settings = CompanySettings(company_id=new_company.id)
+    db.add(default_settings)
+
     # --- YENİ EKLENTİ: YENİ ŞİRKETE OTOMATİK 14 GÜNLÜK DENEME SÜRÜMÜ ---
     from datetime import datetime, timedelta
     from app.models.subscription import Subscription
